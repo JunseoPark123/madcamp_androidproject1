@@ -1,38 +1,13 @@
 package com.example.madcamp_androidproject
 import android.os.Bundle
-import android.view.View
-import android.view.ViewGroup
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import org.json.JSONArray
 import java.nio.charset.Charset
-import android.view.LayoutInflater
-
+import android.widget.SearchView
 
 data class Contact(val name: String, val phoneNumber: String)
-
-class ContactAdapter(private val contactList: List<Contact>) : RecyclerView.Adapter<ContactAdapter.ViewHolder>() {
-
-    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val nameTextView: TextView = view.findViewById(R.id.textViewName)
-        val phoneNumberTextView: TextView = view.findViewById(R.id.textViewPhoneNumber)
-    }
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_contact, parent, false)
-        return ViewHolder(view)
-    }
-
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val contact = contactList[position]
-        holder.nameTextView.text = contact.name
-        holder.phoneNumberTextView.text = contact.phoneNumber
-    }
-
-    override fun getItemCount() = contactList.size
-}
 class MainActivity : AppCompatActivity() {
 
     private lateinit var recyclerView: RecyclerView
@@ -49,6 +24,20 @@ class MainActivity : AppCompatActivity() {
         contactList = loadContacts()
         contactAdapter = ContactAdapter(contactList)
         recyclerView.adapter = contactAdapter
+
+
+        // 검색바 구현
+        val searchView = findViewById<SearchView>(R.id.searchView)
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                contactAdapter.filter.filter(newText)
+                return false
+            }
+        })
     }
 
     private fun loadContacts(): List<Contact> {

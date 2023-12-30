@@ -8,17 +8,17 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import android.widget.SearchView
 import androidx.activity.result.contract.ActivityResultContracts
+import android.os.Parcel
+import android.os.Parcelable
+import androidx.activity.result.ActivityResultLauncher
 
-data class Contact(val name: String, val phoneNumber: String) : Comparable<Contact> {
-    override fun compareTo(other: Contact): Int {
-        return name.compareTo(other.name)
-    }
-}
 
 class ContactActivity : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var contactAdapter: ContactAdapter
     private var contactList: MutableList<Contact> = mutableListOf()
+    private lateinit var editContactLauncher: ActivityResultLauncher<Intent>
+
 
     // addContactLauncher를 val로 선언하고 클래스의 프로퍼티로 만듭니다.
     private val addContactLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
@@ -47,7 +47,15 @@ class ContactActivity : AppCompatActivity() {
         val jsonLoader = JsonLoader(this)
         contactList = jsonLoader.loadContacts().toMutableList()
 
-        contactAdapter = ContactAdapter(contactList)
+        // ContactAdapter를 초기화하고 클릭 리스너를 설정
+        contactAdapter = ContactAdapter(contactList) { contact, position ->
+            val intent = Intent(this, DetailContactActivity::class.java).apply {
+                putExtra("CONTACT", contact)
+                putExtra("CONTACT_LIST", contactList?.toTypedArray())
+                putExtra("ADAPTER_POSITION", position)
+            }
+            editContactLauncher.launch(intent)
+        }
         recyclerView.adapter = contactAdapter
 
         val searchView = findViewById<SearchView>(R.id.searchView)
@@ -59,18 +67,57 @@ class ContactActivity : AppCompatActivity() {
             }
         })
 
+        editContactLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == RESULT_OK) {
+                @Suppress("DEPRECATION")
+                val updatedContact: Contact? = result.data?.getParcelableExtra("UPDATED_CONTACT")
+                updatedContact?.let {
+                    // 연락처 리스트에서 해당 연락처를 찾아 업데이트합니다.
+                    val index = contactList.indexOfFirst { it.phoneNumber == updatedContact.phoneNumber }
+                    if (index != -1) {
+                        contactList[index] = updatedContact
+                        contactList.sortWith(compareBy { it.name })
+                        contactAdapter.notifyItemChanged(index)
+                    }
+                }
+            }
+        }
+
+        // 연락처 추가 버튼 클릭 리스너
         val goToAddButton: Button = findViewById(R.id.goToAddButton)
         goToAddButton.setOnClickListener {
             val intent = Intent(this, AddContactActivity::class.java)
-            //startActivity(intent)
-            addContactLauncher.launch(intent)  // 이제 smart cast 오류가 발생하지 않습니다.
+            addContactLauncher.launch(intent)  // 올바른 launcher를 사용합니다.
         }
     }
+}
 
-    private fun addContactSorted(contactList: List<Contact>, newContact: Contact): List<Contact> {
-        val newList = contactList.toMutableList()
-        newList.add(newContact)
-        newList.sort()
-        return newList
+data class Contact(val name: String, val phoneNumber: String) : Parcelable, Comparable<Contact> {
+
+    override fun compareTo(other: Contact): Int {
+        return name.compareTo(other.name)
+    }
+
+    override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeString(name)
+        parcel.writeString(phoneNumber)
+    }
+
+    override fun describeContents(): Int {
+        return 0
+    }
+
+    companion object CREATOR : Parcelable.Creator<Contact> {
+        override fun createFromParcel(parcel: Parcel): Contact {
+            val name = parcel.readString() ?: ""
+            val phoneNumber = parcel.readString() ?: ""
+            return Contact(name, phoneNumber)
+        }
+
+        override fun newArray(size: Int): Array<Contact?> {
+            return arrayOfNulls(size)
+        }
     }
 }
+
+

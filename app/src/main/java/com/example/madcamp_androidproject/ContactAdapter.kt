@@ -2,6 +2,7 @@ package com.example.madcamp_androidproject
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -11,14 +12,24 @@ import android.widget.Filterable
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class ContactAdapter(private val contactList: List<Contact>) : RecyclerView.Adapter<ContactAdapter.ViewHolder>(),
+class ContactAdapter(private val contactList: List<Contact>, private val onContactClicked: (Contact, Int) -> Unit) : RecyclerView.Adapter<ContactAdapter.ViewHolder>(),
     Filterable {
 
     var filteredList = contactList
 
-    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val nameTextView: TextView = view.findViewById(R.id.textViewName)
         val phoneNumberTextView: TextView = view.findViewById(R.id.textViewPhoneNumber)
+
+        init {
+            view.setOnClickListener {
+                // 여기에서 클릭된 아이템에 대한 동작을 정의합니다.
+                // 예: 상세 정보 액티비티로 이동
+                val intent = Intent(view.context, DetailContactActivity::class.java)
+                intent.putExtra("CONTACT", contactList[adapterPosition])
+                view.context.startActivity(intent)
+            }
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -32,6 +43,9 @@ class ContactAdapter(private val contactList: List<Contact>) : RecyclerView.Adap
         val contact = filteredList[position]
         holder.nameTextView.text = contact.name
         holder.phoneNumberTextView.text = contact.phoneNumber
+        holder.itemView.setOnClickListener {
+            onContactClicked(contact, position) // 클릭 이벤트에 리스너를 연결
+        }
     }
 
     override fun getFilter(): Filter {

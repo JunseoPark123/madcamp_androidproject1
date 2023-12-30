@@ -18,7 +18,7 @@ data class Contact(val name: String, val phoneNumber: String) : Comparable<Conta
 class ContactActivity : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var contactAdapter: ContactAdapter
-    private var contactList: List<Contact> = listOf()
+    private var contactList: MutableList<Contact> = mutableListOf()
 
     // addContactLauncher를 val로 선언하고 클래스의 프로퍼티로 만듭니다.
     private val addContactLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
@@ -29,7 +29,8 @@ class ContactActivity : AppCompatActivity() {
                 val newPhoneNumber = data.getStringExtra("newPhoneNumber")
                 if (newName != null && newPhoneNumber != null) {
                     val newContact = Contact(newName, newPhoneNumber)
-                    contactList = addContactSorted(contactList, newContact)
+                    contactList.add(newContact)
+                    contactList.sort()
                     contactAdapter.notifyDataSetChanged()
                 }
             }
@@ -44,7 +45,7 @@ class ContactActivity : AppCompatActivity() {
         recyclerView.layoutManager = LinearLayoutManager(this)
 
         val jsonLoader = JsonLoader(this)
-        contactList = jsonLoader.loadContacts()
+        contactList = jsonLoader.loadContacts().toMutableList()
 
         contactAdapter = ContactAdapter(contactList)
         recyclerView.adapter = contactAdapter
@@ -52,7 +53,6 @@ class ContactActivity : AppCompatActivity() {
         val searchView = findViewById<SearchView>(R.id.searchView)
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean = false
-
             override fun onQueryTextChange(newText: String?): Boolean {
                 contactAdapter.filter.filter(newText)
                 return false
@@ -62,8 +62,8 @@ class ContactActivity : AppCompatActivity() {
         val goToAddButton: Button = findViewById(R.id.goToAddButton)
         goToAddButton.setOnClickListener {
             val intent = Intent(this, AddContactActivity::class.java)
-            startActivity(intent)
-            //addContactLauncher.launch(intent)  // 이제 smart cast 오류가 발생하지 않습니다.
+            //startActivity(intent)
+            addContactLauncher.launch(intent)  // 이제 smart cast 오류가 발생하지 않습니다.
         }
     }
 

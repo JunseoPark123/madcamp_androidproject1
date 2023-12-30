@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/navigation_todo"
+        android:icon="@drawable/baseline_phonenumber_24"
+        android:title="@string/title_phonenumber" />
+    <item
+        android:id="@+id/navigation_team"
+        android:icon="@drawable/baseline_photo_24"
+        android:title="@string/title_gallery" />
+    <item
+        android:id="@+id/navigation_mypage"
+        android:icon="@drawable/baseline_english_24"
+        android:title="@string/title_english" />
+</menu>

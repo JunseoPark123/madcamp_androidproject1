@@ -14,8 +14,8 @@ class QuizActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_quiz)
 
-        val btn_toeic : Button = findViewById(R.id.btn_toeic_myvoca)
-        btn_toeic.setOnClickListener {
+        val btnQuiz : Button = findViewById(R.id.btn_vocaquiz)
+        btnQuiz.setOnClickListener {
             val intent = Intent(this, QuizQuestionActivity::class.java)
             startActivity(intent)
             finish()

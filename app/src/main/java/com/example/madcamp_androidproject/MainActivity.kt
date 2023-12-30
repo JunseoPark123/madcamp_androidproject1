@@ -1,67 +1,44 @@
 package com.example.madcamp_androidproject
+
+import android.content.Intent
+import android.widget.AdapterView
 import android.os.Bundle
-import android.view.View
-import android.view.ViewGroup
-import android.widget.TextView
+import android.widget.GridView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import org.json.JSONArray
-import java.nio.charset.Charset
-import android.view.LayoutInflater
+import com.squareup.picasso.Picasso
 
-
-data class Contact(val name: String, val phoneNumber: String)
-
-class ContactAdapter(private val contactList: List<Contact>) : RecyclerView.Adapter<ContactAdapter.ViewHolder>() {
-
-    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val nameTextView: TextView = view.findViewById(R.id.textViewName)
-        val phoneNumberTextView: TextView = view.findViewById(R.id.textViewPhoneNumber)
-    }
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_contact, parent, false)
-        return ViewHolder(view)
-    }
-
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val contact = contactList[position]
-        holder.nameTextView.text = contact.name
-        holder.phoneNumberTextView.text = contact.phoneNumber
-    }
-
-    override fun getItemCount() = contactList.size
-}
 class MainActivity : AppCompatActivity() {
-
-    private lateinit var recyclerView: RecyclerView
-    private lateinit var contactAdapter: ContactAdapter
-    private var contactList: List<Contact> = listOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        recyclerView = findViewById(R.id.recyclerView)
-        recyclerView.layoutManager = LinearLayoutManager(this)
+        val gridView: GridView = findViewById(R.id.gridView)
 
-        contactList = loadContacts()
-        contactAdapter = ContactAdapter(contactList)
-        recyclerView.adapter = contactAdapter
-    }
+        val imageUrls = arrayOf(
+            "https://cdn.pixabay.com/photo/2021/08/03/07/03/orange-6518675_960_720.jpg",
+            "https://cdn.pixabay.com/photo/2023/12/15/21/47/cat-8451431_1280.jpg",
+            "https://cdn.pixabay.com/photo/2023/12/05/17/45/plant-8432181_1280.jpg",
+            "https://cdn.pixabay.com/photo/2023/11/29/11/55/pine-hills-8419433_1280.jpg",
+            "https://cdn.pixabay.com/photo/2023/07/23/13/04/flower-8145077_1280.jpg",
+            "https://cdn.pixabay.com/photo/2023/10/05/17/54/geese-8296524_1280.jpg",
+            "https://cdn.pixabay.com/photo/2023/12/04/17/24/sandpiper-8429874_1280.jpg",
+            "https://cdn.pixabay.com/photo/2016/12/03/15/44/fireworks-1880045_1280.jpg",
+            "https://cdn.pixabay.com/photo/2023/10/19/21/08/sunset-8327637_1280.jpg",
+            // Add more image URLs as needed
+        )
 
-    private fun loadContacts(): List<Contact> {
-        val contacts = mutableListOf<Contact>()
-        val jsonString = assets.open("phone_book.json").bufferedReader(Charset.forName("UTF-8")).use { it.readText() }
-        val jsonArray = JSONArray(jsonString)
+        val adapter = ImageAdapter(this, imageUrls)
+        gridView.adapter = adapter
+        //adapter.notifyDataSetChanged()
 
-        for (i in 0 until jsonArray.length()) {
-            val jsonObject = jsonArray.getJSONObject(i)
-            val name = jsonObject.getString("name")
-            val phoneNumber = jsonObject.getString("phone_number")
-            contacts.add(Contact(name, phoneNumber))
+        gridView.setOnItemClickListener { _, _, position, _ ->
+            // Handle item click, e.g., open a larger view of the image
+            val selectedImage = adapter.getItem(position) as Int
+
+            val intent = Intent(this, FullScreenActivity::class.java)
+            intent.putExtra(FullScreenActivity.EXTRA_IMAGE_ID, selectedImage)
+            startActivity(intent)
         }
-        return contacts
     }
 }

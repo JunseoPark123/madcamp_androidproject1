@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class DetailContactActivity : AppCompatActivity() {
     private lateinit var nameEditText: EditText
@@ -26,6 +27,33 @@ class DetailContactActivity : AppCompatActivity() {
             nameEditText.setText(it.name)
             phoneNumberEditText.setText(it.phoneNumber)
         }
+
+        val bottomNavView: BottomNavigationView = findViewById(R.id.bottom_navigation)
+
+        bottomNavView.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.navigation_phonenumber -> {
+                    val intent = Intent(this, ContactActivity::class.java)
+                    startActivity(intent)
+                    true
+                }
+
+                R.id.navigation_photo -> {
+                    val intent = Intent(this, PhotoActivity::class.java)
+                    startActivity(intent)
+                    true
+                }
+
+                R.id.navigation_english -> {
+                    val intent = Intent(this, QuizActivity::class.java)
+                    startActivity(intent)
+                    true
+                }
+
+                else -> false
+            }
+        }
+
 
         // 저장 버튼 클릭 리스너
         saveButton.setOnClickListener {

@@ -3,13 +3,13 @@
     <item
         android:id="@+id/navigation_phonenumber"
         android:icon="@drawable/baseline_phonenumber_24"
-        android:title="@string/title_phonenumber" />
+        android:title="" />
     <item
         android:id="@+id/navigation_photo"
         android:icon="@drawable/baseline_photo_24"
-        android:title="@string/title_gallery" />
+        android:title="" />
     <item
         android:id="@+id/navigation_english"
         android:icon="@drawable/baseline_english_24"
-        android:title="@string/title_english" />
+        android:title="" />
 </menu>

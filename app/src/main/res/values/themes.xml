@@ -1,8 +1,16 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Base.Theme.Madcamp_androidproject" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <!-- Customize your theme here. -->
+
+        <!-- API level 21 (Lollipop) 이상을 위한 상태 바와 네비게이션 바 색상 투명 설정 -->
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+
+        <!-- 이 항목은 뷰가 시스템 UI 영역을 고려하여 내용을 그리는지 여부를 결정합니다. -->
+        <item name="android:fitsSystemWindows">true</item>
+
     </style>
 
     <style name="Theme.Madcamp_androidproject" parent="Base.Theme.Madcamp_androidproject" />

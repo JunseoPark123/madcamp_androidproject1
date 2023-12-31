@@ -6,6 +6,8 @@ import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatEditText
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.bottomnavigation.LabelVisibilityMode
 
 
 class QuizActivity : AppCompatActivity() {
@@ -20,6 +22,31 @@ class QuizActivity : AppCompatActivity() {
             startActivity(intent)
             finish()
         }
+        val bottomNavView: BottomNavigationView = findViewById(R.id.bottom_navigation)
+
+        bottomNavView.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.navigation_phonenumber -> {
+                    val intent = Intent(this, ContactActivity::class.java)
+                    startActivity(intent)
+                    true
+                }
+
+                R.id.navigation_photo -> {
+                    val intent = Intent(this, PhotoActivity::class.java)
+                    startActivity(intent)
+                    true
+                }
+
+                R.id.navigation_english -> {
+                    true
+                }
+
+                else -> false
+            }
+        }
+
+        bottomNavView.selectedItemId = R.id.navigation_english
 
     }
 }

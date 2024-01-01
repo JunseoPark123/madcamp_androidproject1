@@ -19,6 +19,8 @@ class AddContactActivity : AppCompatActivity() {
         phoneNumberEditText = findViewById(R.id.editTextPhoneNumber)
         addButton = findViewById(R.id.AddButton)
 
+        phoneNumberEditText.addTextChangedListener(PhoneNumberFormattingTextWatcher())
+
         addButton.setOnClickListener {
             // "확인" 버튼 클릭 시 동작
             val newName = nameEditText.text.toString()

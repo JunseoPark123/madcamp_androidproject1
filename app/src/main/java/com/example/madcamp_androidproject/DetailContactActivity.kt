@@ -35,6 +35,9 @@ class DetailContactActivity : AppCompatActivity() {
             contactInitialTextView.text = it.name.first().toString()
         }
 
+        phoneNumberEditText.addTextChangedListener(PhoneNumberFormattingTextWatcher())
+
+
         // 저장 버튼 클릭 리스너
         saveButton.setOnClickListener {
             val updatedContact = Contact(

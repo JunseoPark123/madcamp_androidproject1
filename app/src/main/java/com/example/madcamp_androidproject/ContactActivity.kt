@@ -10,6 +10,7 @@ import android.widget.SearchView
 import androidx.activity.result.contract.ActivityResultContracts
 import android.os.Parcel
 import android.os.Parcelable
+import android.widget.ImageButton
 import androidx.activity.result.ActivityResultLauncher
 
 
@@ -80,11 +81,22 @@ class ContactActivity : AppCompatActivity() {
                         contactAdapter.notifyItemChanged(index)
                     }
                 }
+            } else if (result.resultCode == RESULT_FIRST_USER) {
+                // 연락처 삭제 처리
+                val deletedContact: Contact? = result.data?.getParcelableExtra("DELETED_CONTACT")
+                deletedContact?.let {
+                    // 연락처 리스트에서 해당 연락처를 찾아 삭제합니다.
+                    val index = contactList.indexOfFirst { it.phoneNumber == deletedContact.phoneNumber }
+                    if (index != -1) {
+                        contactList.removeAt(index)
+                        contactAdapter.notifyItemRemoved(index)
+                    }
+                }
             }
         }
 
         // 연락처 추가 버튼 클릭 리스너
-        val goToAddButton: Button = findViewById(R.id.goToAddButton)
+        val goToAddButton = findViewById<ImageButton>(R.id.goToAddButton)
         goToAddButton.setOnClickListener {
             val intent = Intent(this, AddContactActivity::class.java)
             addContactLauncher.launch(intent)  // 올바른 launcher를 사용합니다.

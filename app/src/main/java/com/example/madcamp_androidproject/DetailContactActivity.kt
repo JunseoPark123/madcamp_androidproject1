@@ -12,6 +12,8 @@ class DetailContactActivity : AppCompatActivity() {
     private lateinit var nameEditText: EditText
     private lateinit var phoneNumberEditText: EditText
     private lateinit var saveButton: Button
+    private lateinit var deleteButton: Button
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,6 +23,8 @@ class DetailContactActivity : AppCompatActivity() {
         nameEditText = findViewById(R.id.editTextName)
         phoneNumberEditText = findViewById(R.id.editTextPhoneNumber)
         saveButton = findViewById(R.id.saveButton)
+        deleteButton = findViewById(R.id.delete_button)
+
 
         // Intent에서 연락처 정보 가져오기
         @Suppress("DEPRECATION")
@@ -43,6 +47,14 @@ class DetailContactActivity : AppCompatActivity() {
             resultIntent.putExtra("UPDATED_CONTACT", updatedContact)
             setResult(RESULT_OK, resultIntent)
 
+            finish()
+        }
+
+        deleteButton.setOnClickListener {
+            // 삭제할 연락처의 정보를 결과로 설정하고 액티비티를 종료합니다.
+            val resultIntent = Intent()
+            resultIntent.putExtra("DELETED_CONTACT", contact)
+            setResult(RESULT_FIRST_USER, resultIntent) // RESULT_OK 대신 다른 결과 코드를 사용합니다.
             finish()
         }
     }

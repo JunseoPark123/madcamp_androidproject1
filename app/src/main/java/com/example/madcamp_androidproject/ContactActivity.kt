@@ -80,6 +80,17 @@ class ContactActivity : AppCompatActivity() {
                         contactAdapter.notifyItemChanged(index)
                     }
                 }
+            } else if (result.resultCode == RESULT_FIRST_USER) {
+                // 연락처 삭제 처리
+                val deletedContact: Contact? = result.data?.getParcelableExtra("DELETED_CONTACT")
+                deletedContact?.let {
+                    // 연락처 리스트에서 해당 연락처를 찾아 삭제합니다.
+                    val index = contactList.indexOfFirst { it.phoneNumber == deletedContact.phoneNumber }
+                    if (index != -1) {
+                        contactList.removeAt(index)
+                        contactAdapter.notifyItemRemoved(index)
+                    }
+                }
             }
         }
 

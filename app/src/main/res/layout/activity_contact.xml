@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".ContactActivity">
 
+
     <!-- 검색바 추가 -->
     <SearchView
         android:id="@+id/searchView"

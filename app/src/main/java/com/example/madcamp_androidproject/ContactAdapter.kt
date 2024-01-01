@@ -18,6 +18,7 @@ class ContactAdapter(private val contactList: List<Contact>, private val onConta
     var filteredList = contactList
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        val contactIcon: TextView = view.findViewById(R.id.contactIcon)
         val nameTextView: TextView = view.findViewById(R.id.textViewName)
         val phoneNumberTextView: TextView = view.findViewById(R.id.textViewPhoneNumber)
 
@@ -41,6 +42,7 @@ class ContactAdapter(private val contactList: List<Contact>, private val onConta
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val contact = filteredList[position]
+        holder.contactIcon.text = contact.name.first().toString()
         holder.nameTextView.text = contact.name
         holder.phoneNumberTextView.text = contact.phoneNumber
         holder.itemView.setOnClickListener {

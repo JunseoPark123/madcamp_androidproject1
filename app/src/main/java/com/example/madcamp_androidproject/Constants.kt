@@ -1,103 +1,52 @@
 package com.example.madcamp_androidproject
 
+import android.content.Context
+import org.apache.poi.ss.usermodel.WorkbookFactory
+import java.io.InputStream
+import kotlin.random.Random
+
+
 object Constants {
 
     // TODO  Create a constant variables which we required in the result screen
     const val TOTAL_QUESTIONS: String = "total_questions"
     const val CORRECT_ANSWERS: String = "correct_answers"
-    fun getQuestions(): ArrayList<Question> {
+    fun getQuestions(context: Context): ArrayList<Question> {
         val questionsList = ArrayList<Question>()
+        val inputStream: InputStream = context.assets.open("toeic_word.xlsx")
+        val workbook = WorkbookFactory.create(inputStream)
+        val sheet = workbook.getSheetAt(0)
+        val day1Words = ArrayList<String>()
+        val day1Meanings = ArrayList<String>()
 
-        // 1
-        val que1 = Question(
-            1, "What country does this flag belong to?",
-            "Argentina", "Australia",
-            "Armenia", "Austria", 1
-        )
+        for (row in sheet) {
+            if (row.getCell(0).stringCellValue == "day1") {
+                day1Words.add(row.getCell(1).stringCellValue)
+                day1Meanings.add(row.getCell(2).stringCellValue)
+            }
+        }
 
-        questionsList.add(que1)
+        for (i in 1..10) {
+            val correctAnswerIndex = Random.nextInt(day1Words.size)
+            val questionWord = day1Words[correctAnswerIndex]
+            val correctAnswer = day1Meanings[correctAnswerIndex]
 
-        // 2
-        val que2 = Question(
-            2, "What country does this flag belong to?",
-            "Angola", "Austria",
-            "Australia", "Armenia", 3
-        )
+            // 올바른 답변과 다른 답변들을 섞음
+            val options = day1Meanings.shuffled().take(3).toMutableList()
+            options.add(correctAnswer)
+            options.shuffle()
 
-        questionsList.add(que2)
+            val correctOptionIndex = options.indexOf(correctAnswer) + 1
 
-        // 3
-        val que3 = Question(
-            3, "What country does this flag belong to?",
-            "Belarus", "Belize",
-            "Brunei", "Brazil", 4
-        )
+            questionsList.add(
+                Question(
+                    i, "What is the meaning of '$questionWord'?",
+                    options[0], options[1], options[2], options[3], correctOptionIndex
+                )
+            )
+        }
 
-        questionsList.add(que3)
-
-        // 4
-        val que4 = Question(
-            4, "What country does this flag belong to?",
-            "Bahamas", "Belgium",
-            "Barbados", "Belize", 2
-        )
-
-        questionsList.add(que4)
-
-        // 5
-        val que5 = Question(
-            5, "What country does this flag belong to?",
-            "Gabon", "France",
-            "Fiji", "Finland", 3
-        )
-
-        questionsList.add(que5)
-
-        // 6
-        val que6 = Question(
-            6, "What country does this flag belong to?",
-            "Germany", "Georgia",
-            "Greece", "none of these", 1
-        )
-
-        questionsList.add(que6)
-
-        // 7
-        val que7 = Question(
-            7, "What country does this flag belong to?",
-            "Dominica", "Egypt",
-            "Denmark", "Ethiopia", 3
-        )
-
-        questionsList.add(que7)
-
-        // 8
-        val que8 = Question(
-            8, "What country does this flag belong to?",
-            "Ireland", "Iran",
-            "Hungary", "India", 4
-        )
-
-        questionsList.add(que8)
-
-        // 9
-        val que9 = Question(
-            9, "What country does this flag belong to?",
-            "Australia", "New Zealand",
-            "Tuvalu", "United States of America", 2
-        )
-
-        questionsList.add(que9)
-
-        // 10
-        val que10 = Question(
-            10, "What country does this flag belong to?",
-            "Kuwait", "Jordan",
-            "Sudan", "Palestine", 1
-        )
-
-        questionsList.add(que10)
-
+        inputStream.close()
         return questionsList
     }
 }

@@ -33,7 +33,7 @@ class QuizQuestionActivity : AppCompatActivity(), View.OnClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_quiz_question)
 
-        progressBar=findViewById(R.id.progressBar)
+        progressBar = findViewById(R.id.progressBar)
         tvProgress = findViewById(R.id.tv_progress)
         tvQuestion = findViewById(R.id.tv_question)
         tvOptionOne = findViewById(R.id.tv_option_one)
@@ -41,7 +41,7 @@ class QuizQuestionActivity : AppCompatActivity(), View.OnClickListener {
         tvOptionThree = findViewById(R.id.tv_option_three)
         tvOptionFour = findViewById(R.id.tv_option_four)
         buttonSubmit = findViewById(R.id.btn_submit)
-        mQuestionsList = Constants.getQuestions()
+        mQuestionsList = Constants.getQuestions(this)
 
         setQuestion()
 

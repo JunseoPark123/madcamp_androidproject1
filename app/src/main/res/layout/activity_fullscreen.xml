@@ -13,17 +13,6 @@
 
     </androidx.viewpager.widget.ViewPager>
 
-    <ImageButton
-        android:id="@+id/GalleryBookmarkImage"
-        android:layout_width="36dp"
-        android:layout_height="36dp"
-        android:layout_margin="16dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="16dp"
-        android:scaleType="fitCenter"
-        android:src="@drawable/ic_bookmark_border"/>
-
 
 
     <Button

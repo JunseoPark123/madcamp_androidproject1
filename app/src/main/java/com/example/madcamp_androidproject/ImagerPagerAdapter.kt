@@ -29,7 +29,6 @@ class ImagePagerAdapter(private val images: List<Int>, private val context: Cont
             .load(images[position])
             .into(imageView)
 
-
         return view
     }
 

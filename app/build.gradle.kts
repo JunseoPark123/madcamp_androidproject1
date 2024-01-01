@@ -39,8 +39,9 @@ android {
 }
 
 dependencies {
-    implementation("com.squareup.picasso:picasso:2.71828")
     implementation ("com.github.bumptech.glide:glide:4.12.0")
+    implementation("androidx.appcompat:appcompat:1.3.1")
+    implementation("androidx.viewpager:viewpager:1.0.0")
     implementation("androidx.navigation:navigation-fragment-ktx:2.5.3")
     implementation("androidx.navigation:navigation-ui-ktx:2.5.3")
     annotationProcessor ("com.github.bumptech.glide:compiler:4.12.0")

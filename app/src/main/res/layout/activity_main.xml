@@ -9,9 +9,6 @@ android:layout_height="match_parent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:numColumns="4"
-        android:scrollbarStyle="outsideOverlay"
-        android:scrollbars="vertical"
-        android:fastScrollEnabled="true"/>
+        android:numColumns="4" />
 
 </LinearLayout>

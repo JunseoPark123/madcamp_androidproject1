@@ -8,17 +8,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.ImageView
-import com.squareup.picasso.Picasso
 import com.bumptech.glide.Glide
 
-class ImageAdapter(private val context: Context, private val imageUrls: Array<String>) : BaseAdapter() {
+class ImageAdapter(private val context: Context, private val images: Array<Int>) : BaseAdapter() {
 
     override fun getCount(): Int {
-        return imageUrls.size
+        return images.size
     }
 
     override fun getItem(position: Int): Any {
-        return imageUrls[position]
+        return images[position]
     }
 
     override fun getItemId(position: Int): Long {
@@ -37,9 +36,10 @@ class ImageAdapter(private val context: Context, private val imageUrls: Array<St
         }
 
         Glide.with(context)
-            .load(imageUrls[position])
+            .load(images[position])
             .into(imageView)
 
         return imageView
     }
+
 }

@@ -7,6 +7,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.TextView
+import android.widget.Toast
 
 class DetailContactActivity : AppCompatActivity() {
     private lateinit var contactInitialTextView: TextView
@@ -41,17 +42,22 @@ class DetailContactActivity : AppCompatActivity() {
 
         // 저장 버튼 클릭 리스너
         saveButton.setOnClickListener {
-            val updatedContact = Contact(
-                nameEditText.text.toString(),
-                phoneNumberEditText.text.toString()
-            )
+            val name = nameEditText.text.toString()
+            val phoneNumber = phoneNumberEditText.text.toString()
 
-            // 연락처를 수정하고 결과를 Intent에 추가
-            val resultIntent = Intent()
-            resultIntent.putExtra("UPDATED_CONTACT", updatedContact)
-            setResult(RESULT_OK, resultIntent)
-
-            finish()
+            // 이름이 비어 있는지 확인
+            if (name.isBlank()) {
+                // 이름이 비어 있으면 토스트 메시지를 표시
+                Toast.makeText(this, "이름을 입력해주세요.", Toast.LENGTH_SHORT).show()
+            } else {
+                // 이름이 있으면 연락처를 수정하고 결과를 Intent에 추가
+                val updatedContact = Contact(name, phoneNumber)
+                val resultIntent = Intent().apply {
+                    putExtra("UPDATED_CONTACT", updatedContact)
+                }
+                setResult(RESULT_OK, resultIntent)
+                finish()
+            }
         }
 
         deleteButton.setOnClickListener {

@@ -96,12 +96,14 @@ class ContactActivity : AppCompatActivity() {
                 R.id.navigation_photo -> {
                     val intent = Intent(this, PhotoActivity::class.java)
                     startActivity(intent)
+                    finish()
                     true
                 }
 
                 R.id.navigation_english -> {
                     val intent = Intent(this, QuizActivity::class.java)
                     startActivity(intent)
+                    finish()
                     true
                 }
 

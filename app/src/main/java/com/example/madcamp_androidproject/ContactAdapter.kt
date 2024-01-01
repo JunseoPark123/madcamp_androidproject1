@@ -29,6 +29,7 @@ class ContactAdapter(private val contactList: List<Contact>, private val onConta
                 val intent = Intent(view.context, DetailContactActivity::class.java)
                 intent.putExtra("CONTACT", contactList[adapterPosition])
                 view.context.startActivity(intent)
+                onContactClicked(contactList[adapterPosition], adapterPosition)
             }
         }
     }

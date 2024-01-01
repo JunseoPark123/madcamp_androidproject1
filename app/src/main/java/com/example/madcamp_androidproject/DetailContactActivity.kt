@@ -15,6 +15,7 @@ class DetailContactActivity : AppCompatActivity() {
     private lateinit var phoneNumberEditText: EditText
     private lateinit var saveButton: ImageButton
     private lateinit var deleteButton: ImageButton
+    private lateinit var goBackButton: ImageButton
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,6 +27,7 @@ class DetailContactActivity : AppCompatActivity() {
         phoneNumberEditText = findViewById(R.id.editTextPhoneNumber)
         saveButton = findViewById<ImageButton>(R.id.saveButton)
         deleteButton = findViewById<ImageButton>(R.id.delete_button)
+        goBackButton = findViewById<ImageButton>(R.id.GoBack_button)
 
 
         // Intent에서 연락처 정보 가져오기
@@ -65,6 +67,10 @@ class DetailContactActivity : AppCompatActivity() {
             val resultIntent = Intent()
             resultIntent.putExtra("DELETED_CONTACT", contact)
             setResult(RESULT_FIRST_USER, resultIntent) // RESULT_OK 대신 다른 결과 코드를 사용합니다.
+            finish()
+        }
+
+        goBackButton.setOnClickListener {
             finish()
         }
     }

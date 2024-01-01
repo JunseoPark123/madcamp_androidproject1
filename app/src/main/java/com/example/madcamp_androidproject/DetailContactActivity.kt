@@ -5,14 +5,15 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageButton
 import android.widget.TextView
 
 class DetailContactActivity : AppCompatActivity() {
     private lateinit var contactInitialTextView: TextView
     private lateinit var nameEditText: EditText
     private lateinit var phoneNumberEditText: EditText
-    private lateinit var saveButton: Button
-    private lateinit var deleteButton: Button
+    private lateinit var saveButton: ImageButton
+    private lateinit var deleteButton: ImageButton
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,8 +23,8 @@ class DetailContactActivity : AppCompatActivity() {
         contactInitialTextView = findViewById(R.id.contactInitial)
         nameEditText = findViewById(R.id.editTextName)
         phoneNumberEditText = findViewById(R.id.editTextPhoneNumber)
-        saveButton = findViewById(R.id.saveButton)
-        deleteButton = findViewById(R.id.delete_button)
+        saveButton = findViewById<ImageButton>(R.id.saveButton)
+        deleteButton = findViewById<ImageButton>(R.id.delete_button)
 
 
         // Intent에서 연락처 정보 가져오기

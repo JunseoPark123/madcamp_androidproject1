@@ -10,6 +10,7 @@ import android.widget.SearchView
 import androidx.activity.result.contract.ActivityResultContracts
 import android.os.Parcel
 import android.os.Parcelable
+import android.widget.ImageButton
 import androidx.activity.result.ActivityResultLauncher
 
 
@@ -95,7 +96,7 @@ class ContactActivity : AppCompatActivity() {
         }
 
         // 연락처 추가 버튼 클릭 리스너
-        val goToAddButton: Button = findViewById(R.id.goToAddButton)
+        val goToAddButton = findViewById<ImageButton>(R.id.goToAddButton)
         goToAddButton.setOnClickListener {
             val intent = Intent(this, AddContactActivity::class.java)
             addContactLauncher.launch(intent)  // 올바른 launcher를 사용합니다.

@@ -11,6 +11,8 @@ import androidx.activity.result.contract.ActivityResultContracts
 import android.os.Parcel
 import android.os.Parcelable
 import androidx.activity.result.ActivityResultLauncher
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.bottomnavigation.LabelVisibilityMode
 
 
 class ContactActivity : AppCompatActivity() {
@@ -82,6 +84,34 @@ class ContactActivity : AppCompatActivity() {
                 }
             }
         }
+
+        val bottomNavView: BottomNavigationView = findViewById(R.id.bottom_navigation)
+
+        bottomNavView.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.navigation_phonenumber -> {
+                    true
+                }
+
+                R.id.navigation_photo -> {
+                    val intent = Intent(this, PhotoActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                    true
+                }
+
+                R.id.navigation_english -> {
+                    val intent = Intent(this, QuizActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                    true
+                }
+
+                else -> false
+            }
+        }
+
+
 
         // 연락처 추가 버튼 클릭 리스너
         val goToAddButton: Button = findViewById(R.id.goToAddButton)

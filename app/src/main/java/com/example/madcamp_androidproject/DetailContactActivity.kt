@@ -5,8 +5,10 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 
 class DetailContactActivity : AppCompatActivity() {
+    private lateinit var contactInitialTextView: TextView
     private lateinit var nameEditText: EditText
     private lateinit var phoneNumberEditText: EditText
     private lateinit var saveButton: Button
@@ -15,6 +17,7 @@ class DetailContactActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail_contact)
 
+        contactInitialTextView = findViewById(R.id.contactInitial)
         nameEditText = findViewById(R.id.editTextName)
         phoneNumberEditText = findViewById(R.id.editTextPhoneNumber)
         saveButton = findViewById(R.id.saveButton)
@@ -25,6 +28,7 @@ class DetailContactActivity : AppCompatActivity() {
         contact?.let {
             nameEditText.setText(it.name)
             phoneNumberEditText.setText(it.phoneNumber)
+            contactInitialTextView.text = it.name.first().toString()
         }
 
         // 저장 버튼 클릭 리스너

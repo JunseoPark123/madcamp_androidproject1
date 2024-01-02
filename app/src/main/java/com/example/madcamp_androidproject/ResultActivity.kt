@@ -7,6 +7,8 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class ResultActivity : AppCompatActivity() {
@@ -14,17 +16,26 @@ class ResultActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_result)
 
-        //Todo: connect to each view in the layout through its id
-        val tvScore:TextView = findViewById(R.id.tv_score)
-        val btnFinish:Button = findViewById(R.id.btn_finish)
+        val tvResult: TextView = findViewById(R.id.tv_result)
+        val tvScore: TextView = findViewById(R.id.tv_score)
+        val btnFinish: Button = findViewById(R.id.btn_finish)
 
+        val selectedDay = intent.getStringExtra("selectedDay") ?: "day1"
         val totalQuestions = intent.getIntExtra(Constants.TOTAL_QUESTIONS, 0)
         val correctAnswers = intent.getIntExtra(Constants.CORRECT_ANSWERS, 0)
+        val incorrectAnswers = totalQuestions - correctAnswers
+        val quizResults: ArrayList<QuizResult> = intent.getSerializableExtra("QuizResults") as ArrayList<QuizResult>
 
-        tvScore.text = "Your Score is $correctAnswers out of $totalQuestions."
+        // Set Day and Score information
+        tvResult.text = "Results for $selectedDay"
+        tvScore.text = "Correct: $correctAnswers, Incorrect: $incorrectAnswers"
+
+        // RecyclerView setup
+        val rvIncorrectWords: RecyclerView = findViewById(R.id.rv_incorrect_words)
+        rvIncorrectWords.layoutManager = LinearLayoutManager(this)
+        rvIncorrectWords.adapter = QuizResultAdapter(quizResults)
 
         btnFinish.setOnClickListener {
-            //
             startActivity(Intent(this@ResultActivity, QuizActivity::class.java))
         }
 

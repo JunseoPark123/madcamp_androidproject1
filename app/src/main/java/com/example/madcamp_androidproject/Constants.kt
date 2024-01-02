@@ -2,10 +2,7 @@ import android.content.Context
 import android.util.Log
 import com.example.madcamp_androidproject.Question
 import com.example.madcamp_androidproject.ToeicWord
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 import org.json.JSONArray
-import java.io.InputStream
 import java.nio.charset.Charset
 import kotlin.random.Random
 
@@ -19,36 +16,31 @@ object Constants {
         val usedWords = mutableSetOf<String>() // 이미 사용된 단어를 추적하기 위한 집합
 
         try {
-            val jsonString =
-                context.assets.open("toeic_word.json").bufferedReader(Charset.forName("UTF-8"))
-                    .use { it.readText() }
+            val jsonString = context.assets.open("toeic_word.json")
+                .bufferedReader(Charset.forName("UTF-8")).use { it.readText() }
             Log.d("Constants", "JSON loaded successfully")
             val jsonArray = JSONArray(jsonString)
-            val day1Words = mutableListOf<ToeicWord>()
+            val dayWords = mutableListOf<ToeicWord>()
 
             for (i in 0 until jsonArray.length()) {
                 val jsonObject = jsonArray.getJSONObject(i)
                 if (jsonObject.getString("Day") == selectedDay) {
                     val word = jsonObject.getString("단어")
                     val meaning = jsonObject.getString("뜻")
-                    day1Words.add(ToeicWord(jsonObject.getString("Day"), word, meaning))
+                    dayWords.add(ToeicWord(selectedDay, word, meaning))
                 }
             }
 
-            while (questionsList.size < 10 && day1Words.isNotEmpty()) {
-                val correctAnswerIndex = Random.nextInt(day1Words.size)
-                val selectedWord = day1Words[correctAnswerIndex]
+            while (questionsList.size < 10 && dayWords.isNotEmpty()) {
+                val correctAnswerIndex = Random.nextInt(dayWords.size)
+                val selectedWord = dayWords[correctAnswerIndex]
 
-                if (usedWords.add(selectedWord.word)) { // 이미 사용된 단어가 아닌 경우에만 진행
+                if (usedWords.add(selectedWord.word)) {
                     val questionWord = selectedWord.meaning
                     val correctAnswer = selectedWord.word
 
-                    // 옵션 생성
-                    val options = day1Words.filter { it.word != correctAnswer }
-                        .shuffled()
-                        .take(3)
-                        .map { it.word }
-                        .toMutableList()
+                    val options = dayWords.filter { it.word != correctAnswer }
+                        .shuffled().take(3).map { it.word }.toMutableList()
                     options.add(correctAnswer)
                     options.shuffle()
 
@@ -58,12 +50,14 @@ object Constants {
                         Question(
                             questionsList.size + 1,
                             "Find the correct English word:\n'$questionWord'",
-                            options[0], options[1], options[2], options[3], correctOptionIndex
+                            options[0], options[1], options[2], options[3],
+                            correctOptionIndex,
+                            correctAnswer, // 추가된 필드
+                            questionWord   // 추가된 필드
                         )
                     )
 
-                    // 사용된 단어 제거
-                    day1Words.removeAt(correctAnswerIndex)
+                    dayWords.removeAt(correctAnswerIndex)
                 }
             }
         } catch (e: Exception) {

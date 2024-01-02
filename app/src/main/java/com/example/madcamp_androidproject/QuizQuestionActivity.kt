@@ -41,7 +41,10 @@ class QuizQuestionActivity : AppCompatActivity(), View.OnClickListener {
         tvOptionThree = findViewById(R.id.tv_option_three)
         tvOptionFour = findViewById(R.id.tv_option_four)
         buttonSubmit = findViewById(R.id.btn_submit)
-        mQuestionsList = Constants.getQuestions(this)
+        val selectedDay = intent.getStringExtra("selectedDay") ?: "day1"
+        Log.d("QuizQuestionActivity", "Selected day: $selectedDay")
+        mQuestionsList = Constants.getQuestions(this, selectedDay)
+
 
         setQuestion()
 
@@ -53,7 +56,7 @@ class QuizQuestionActivity : AppCompatActivity(), View.OnClickListener {
 
 
         val bottomNavView: BottomNavigationView = findViewById(R.id.bottom_navigation)
-
+        bottomNavView.selectedItemId = R.id.navigation_english
         bottomNavView.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.navigation_phonenumber -> {
@@ -179,7 +182,6 @@ class QuizQuestionActivity : AppCompatActivity(), View.OnClickListener {
                             intent.putExtra(Constants.CORRECT_ANSWERS, mCorrectAnswers)
                             intent.putExtra(Constants.TOTAL_QUESTIONS, mQuestionsList?.size)
                             startActivity(intent)
-                            finish()
                         }
                     }
                 } else {

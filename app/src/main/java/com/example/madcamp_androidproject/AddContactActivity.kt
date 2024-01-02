@@ -5,6 +5,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class AddContactActivity : AppCompatActivity() {
 
@@ -35,6 +36,32 @@ class AddContactActivity : AppCompatActivity() {
             // 결과 설정 및 액티비티 종료
             setResult(RESULT_OK, resultIntent)
             finish()
+        }
+
+        val bottomNavView: BottomNavigationView = findViewById(R.id.bottom_navigation)
+        bottomNavView.selectedItemId = R.id.navigation_photo
+        bottomNavView.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.navigation_phonenumber -> {
+                    val intent = Intent(this, ContactActivity::class.java)
+                    startActivity(intent)
+                    true
+                }
+
+                R.id.navigation_photo -> {
+                    val intent = Intent(this, PhotoActivity::class.java)
+                    startActivity(intent)
+                    true
+                }
+
+                R.id.navigation_english -> {
+                    val intent = Intent(this, QuizActivity::class.java)
+                    startActivity(intent)
+                    true
+                }
+
+                else -> false
+            }
         }
 
     }

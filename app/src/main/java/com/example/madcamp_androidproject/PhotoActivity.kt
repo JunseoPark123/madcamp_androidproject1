@@ -5,11 +5,10 @@ import android.widget.AdapterView
 import android.os.Bundle
 import android.widget.GridView
 import androidx.appcompat.app.AppCompatActivity
+import android.widget.AbsListView
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.android.material.bottomnavigation.LabelVisibilityMode
-import com.squareup.picasso.Picasso
 
-class PhotoActivity  : AppCompatActivity() {
+class PhotoActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -17,34 +16,45 @@ class PhotoActivity  : AppCompatActivity() {
 
         val gridView: GridView = findViewById(R.id.gridView)
 
-        val imageUrls = arrayOf(
-            "https://cdn.pixabay.com/photo/2021/08/03/07/03/orange-6518675_960_720.jpg",
-            "https://cdn.pixabay.com/photo/2023/12/15/21/47/cat-8451431_1280.jpg",
-            "https://cdn.pixabay.com/photo/2023/12/05/17/45/plant-8432181_1280.jpg",
-            "https://cdn.pixabay.com/photo/2023/11/29/11/55/pine-hills-8419433_1280.jpg",
-            "https://cdn.pixabay.com/photo/2023/07/23/13/04/flower-8145077_1280.jpg",
-            "https://cdn.pixabay.com/photo/2023/10/05/17/54/geese-8296524_1280.jpg",
-            "https://cdn.pixabay.com/photo/2023/12/04/17/24/sandpiper-8429874_1280.jpg",
-            "https://cdn.pixabay.com/photo/2016/12/03/15/44/fireworks-1880045_1280.jpg",
-            "https://cdn.pixabay.com/photo/2023/10/19/21/08/sunset-8327637_1280.jpg",
+        val images = arrayOf(
+            R.drawable.img1,
+            R.drawable.img2,
+            R.drawable.img3,
+            R.drawable.img4,
+            R.drawable.img5,
+            R.drawable.img6,
+            R.drawable.img7,
+            R.drawable.img8,
+            R.drawable.img9,
+            R.drawable.img10,
+            R.drawable.img11,
+            R.drawable.img12,
+            R.drawable.img13,
+            R.drawable.img14,
+            R.drawable.img15,
+            R.drawable.img16,
+            R.drawable.img17,
+            R.drawable.img18,
+            R.drawable.img19,
+            R.drawable.img20,
             // Add more image URLs as needed
         )
 
-        val adapter = ImageAdapter(this, imageUrls)
+        val adapter = ImageAdapter(this, images)
         gridView.adapter = adapter
-        //adapter.notifyDataSetChanged()
 
         gridView.setOnItemClickListener { _, _, position, _ ->
             // Handle item click, e.g., open a larger view of the image
-            val selectedImage = adapter.getItem(position) as Int
+            val selectedImage = adapter.getItem(position)
 
             val intent = Intent(this, FullScreenActivity::class.java)
-            intent.putExtra(FullScreenActivity.EXTRA_IMAGE_ID, selectedImage)
+            intent.putExtra("imageID", images[position])
+            intent.putIntegerArrayListExtra("images", ArrayList(images.toList()))
             startActivity(intent)
         }
 
         val bottomNavView: BottomNavigationView = findViewById(R.id.bottom_navigation)
-
+        bottomNavView.selectedItemId = R.id.navigation_photo
         bottomNavView.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.navigation_phonenumber -> {
@@ -66,7 +76,8 @@ class PhotoActivity  : AppCompatActivity() {
                 else -> false
             }
         }
-        bottomNavView.selectedItemId = R.id.navigation_photo
+
+
 
     }
 }

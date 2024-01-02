@@ -98,7 +98,7 @@ class ContactActivity : AppCompatActivity() {
         }
 
         val bottomNavView: BottomNavigationView = findViewById(R.id.bottom_navigation)
-
+        bottomNavView.selectedItemId = R.id.navigation_phonenumber
         bottomNavView.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.navigation_phonenumber -> {

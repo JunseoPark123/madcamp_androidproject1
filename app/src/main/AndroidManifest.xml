@@ -20,8 +20,6 @@
             android:name=".ResultActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
-            android:exported="false" />
             android:name=".DetailContactActivity"
             android:exported="false" />
         <activity

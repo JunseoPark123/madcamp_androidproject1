@@ -13,8 +13,6 @@
 
     </androidx.viewpager.widget.ViewPager>
 
-
-
     <ImageButton
         android:id="@+id/GalleryFullScreenBackbutton"
         android:layout_width="26dp"

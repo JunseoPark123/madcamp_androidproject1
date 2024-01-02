@@ -15,6 +15,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Madcamp_androidproject"
         tools:targetApi="31">
+        <activity
+            android:name=".FullScreenBookmark"
+            android:exported="false" />
+        <activity
+            android:name=".BookmarkImageViewActivity"
+            android:exported="false" />
         <activity android:name=".FullScreenActivity" />
         <activity
             android:name=".MainActivity"

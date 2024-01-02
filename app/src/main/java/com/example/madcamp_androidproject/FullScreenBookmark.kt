@@ -1,15 +1,13 @@
 package com.example.madcamp_androidproject
 
 import android.content.Intent
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ImageButton
 import android.widget.ImageView
-import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager.widget.ViewPager
 
-
-class FullScreenActivity : AppCompatActivity() {
-
+class FullScreenBookmark : AppCompatActivity() {
     companion object {
         const val Image_ID = "imageId"
         const val PREF_NAME = "MyPreferences"
@@ -19,6 +17,7 @@ class FullScreenActivity : AppCompatActivity() {
 
     private lateinit var viewPager: ViewPager
     private lateinit var fullScreenImageView: ImageView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_fullscreen)
@@ -42,10 +41,8 @@ class FullScreenActivity : AppCompatActivity() {
         val btnGoBack: ImageButton = findViewById(R.id.GalleryFullScreenBackbutton)
 
         btnGoBack.setOnClickListener {
-            finish()
+            val intent = Intent(this, BookmarkImageViewActivity::class.java)
+            startActivity(intent)
         }
     }
-
-
-
 }

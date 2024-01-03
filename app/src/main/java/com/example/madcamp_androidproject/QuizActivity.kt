@@ -3,11 +3,8 @@ package com.example.madcamp_androidproject
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.AppCompatEditText
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import android.util.Log
 
 
 class QuizActivity : AppCompatActivity() {
@@ -20,6 +17,12 @@ class QuizActivity : AppCompatActivity() {
         val btnQuiz : Button = findViewById(R.id.btn_vocaquiz)
         btnQuiz.setOnClickListener {
             val intent = Intent(this@QuizActivity, DayActivity::class.java)
+            startActivity(intent)
+        }
+
+        val btnVoca : Button = findViewById(R.id.btn_toeic_myvoca)
+        btnVoca.setOnClickListener {
+            val intent = Intent(this@QuizActivity, MyVocaActivity::class.java)
             startActivity(intent)
         }
 

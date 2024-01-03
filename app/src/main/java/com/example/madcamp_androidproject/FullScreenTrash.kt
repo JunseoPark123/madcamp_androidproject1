@@ -4,37 +4,25 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.ImageButton
 import android.widget.ImageView
-import androidx.cardview.widget.CardView
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager.widget.ViewPager
-import android.util.Log
 
-
-
-class FullScreenActivity : AppCompatActivity() {
-
-    companion object {
-        const val Image_ID = "imageId"
-        const val PREF_NAME = "MyPreferences"
-        const val KEY_IS_FAVORITE = "isFavorite"
-        const val KEY_FAVORITE_PHOTOS = "favoritePhotos"
-    }
+class FullScreenTrash : AppCompatActivity() {
 
     private lateinit var viewPager: ViewPager
     private lateinit var fullScreenImageView: ImageView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_fullscreen)
 
-
         viewPager = findViewById(R.id.viewPager)
-        val view = layoutInflater.inflate(R.layout.image_full_screen, null)
+        val view = layoutInflater.inflate(R.layout.trash_full_screem, null)
         fullScreenImageView = view.findViewById(R.id.fullScreenImageView)
 
 
         val images = intent.getIntegerArrayListExtra("images") ?: emptyList()
-        val adapter = ImagePagerAdapter(images, this)
+        val adapter = TrashPagerAdapter(images, this)
         viewPager.adapter = adapter
 
 
@@ -44,9 +32,11 @@ class FullScreenActivity : AppCompatActivity() {
 
 
         val btnGoBack: ImageButton = findViewById(R.id.GalleryFullScreenBackbutton)
-        btnGoBack.setOnClickListener {
-            finish()
-        }
 
+        btnGoBack.setOnClickListener {
+            val intent = Intent(this, TrashcanViewActivity::class.java)
+            intent.putIntegerArrayListExtra("images", ArrayList(images.toList()))
+            startActivity(intent)
+        }
     }
 }

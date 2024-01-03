@@ -1,26 +1,19 @@
 package com.example.madcamp_androidproject
 
-import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
+import android.view.View
 import android.widget.GridView
 import android.widget.ImageButton
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.material.bottomnavigation.BottomNavigationView
 
-class PhotoActivity : AppCompatActivity() {
-
-
+class TrashcanViewActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_photo)
+        setContentView(R.layout.activity_trashcan_view)
 
-        val sharedPreferences: SharedPreferences = getSharedPreferences("BookmarkPreferences", Context.MODE_PRIVATE)
         val gridView: GridView = findViewById(R.id.gridView)
-        val BookmarkShowBtn : ImageButton = findViewById(R.id.GalleryShowBookmark)
-        val DeleteShowBtn : ImageButton = findViewById(R.id.GalleryShowDelete)
         val images = arrayOf(
             R.drawable.img1,
             R.drawable.img2,
@@ -63,26 +56,34 @@ class PhotoActivity : AppCompatActivity() {
             R.drawable.img39,
             // Add more image URLs as needed
         )
+        val BookmarkShowBtn : ImageButton = findViewById(R.id.GalleryShowBookmark)
+        val GalleryShowBtn : ImageButton = findViewById(R.id.GalleryShowAllImages)
+        val noTrashText: TextView = findViewById(R.id.noTrashText)
 
-
-        val bin =
-            getSharedPreferences("Trashcan", MODE_PRIVATE)
+        val bin = getSharedPreferences("Trashcan", MODE_PRIVATE)
         val ShownImages = mutableListOf<Int>()
         for (i in 0 until images.size) {
             val imageid = images[i]
+            val isDeletedForever = bin.getBoolean("imgF_$imageid", false)
             val isDeleted = bin.getBoolean("img_$imageid", false)
 
-            if (!isDeleted) {
+            if (isDeleted and !isDeletedForever) {
                 ShownImages.add(imageid)
             }
         }
-        val adapter = ImageAdapter(this, ShownImages.toTypedArray())
+
+
+        if (ShownImages.isEmpty()) {
+            noTrashText.visibility = View.VISIBLE
+        } else {
+            noTrashText.visibility = View.GONE
+        }
+
+        val adapter =ImageAdapter( this, ShownImages.toTypedArray())
         gridView.adapter = adapter
-        val imgNum = adapter.count
-        sharedPreferences.edit().putInt("imgCount", imgNum).apply()
         gridView.setOnItemClickListener { _, _, position, _ ->
 
-            val intent = Intent(this, FullScreenActivity::class.java)
+            val intent = Intent(this, FullScreenTrash::class.java)
             intent.putExtra("imageID", ShownImages[position])
             intent.putIntegerArrayListExtra("images", ArrayList(ShownImages.toList()))
             startActivity(intent)
@@ -95,35 +96,10 @@ class PhotoActivity : AppCompatActivity() {
             overridePendingTransition(0, 0);
         }
 
-        DeleteShowBtn.setOnClickListener {
-            val intent = Intent(this, TrashcanViewActivity::class.java)
-            intent.putIntegerArrayListExtra("images", ArrayList(images.toList()))
+        GalleryShowBtn.setOnClickListener {
+            val intent = Intent(this, PhotoActivity::class.java)
             startActivity(intent)
             overridePendingTransition(0, 0);
-        }
-
-        val bottomNavView: BottomNavigationView = findViewById(R.id.bottom_navigation)
-        bottomNavView.selectedItemId = R.id.navigation_photo
-        bottomNavView.setOnItemSelectedListener { item ->
-            when (item.itemId) {
-                R.id.navigation_phonenumber -> {
-                    val intent = Intent(this, ContactActivity::class.java)
-                    startActivity(intent)
-                    true
-                }
-
-                R.id.navigation_photo -> {
-                    true
-                }
-
-                R.id.navigation_english -> {
-                    val intent = Intent(this, QuizActivity::class.java)
-                    startActivity(intent)
-                    true
-                }
-
-                else -> false
-            }
         }
     }
 }

@@ -4,7 +4,6 @@
     android:layout_height="match_parent"
     android:background="@android:color/white">
 
-
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/viewPager"
         android:layout_width="wrap_content"
@@ -13,7 +12,6 @@
         android:scaleType="centerInside">
 
     </androidx.viewpager.widget.ViewPager>
-
 
     <ImageButton
         android:id="@+id/GalleryFullScreenBackbutton"

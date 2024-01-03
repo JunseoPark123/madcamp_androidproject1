@@ -1,13 +1,12 @@
 package com.example.madcamp_androidproject
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 
 class DetailContactActivity : AppCompatActivity() {
     private lateinit var contactInitialTextView: TextView

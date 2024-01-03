@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".QuizQuestionActivity">
+    tools:context=".QuizQuestionActivity"
+    android:background="@color/white">
 
     <ScrollView
         android:layout_width="0dp"
@@ -42,7 +43,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:gravity="center_vertical"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                tools:ignore="ExtraText">
 
                 <ProgressBar
                     android:id="@+id/progressBar"
@@ -53,7 +55,8 @@
                     android:indeterminate="false"
                     android:max="10"
                     android:minHeight="50dp"
-                    android:progress="0" />
+                    android:progress="0"
+                    android:progressTint="#4B6BEE"/>
 
                 <TextView
                     android:id="@+id/tv_progress"
@@ -123,32 +126,53 @@
                 android:textSize="18sp"
                 tools:text="Nokia" />
 
-            <Button
+            <TextView
                 android:id="@+id/btn_submit"
+                android:text="SUBMIT"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:background="@color/colorPrimary"
-                android:text="SUBMIT"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/default_option_submit_bg"
+                android:gravity="center"
+                android:padding="15dp"
                 android:textColor="@android:color/white"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                android:textSize="18sp"/>
 
         </LinearLayout>
 
 
     </ScrollView>
 
+
+    <View
+        android:id="@+id/line_above_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#D8D8D8"
+        app:layout_constraintBottom_toTopOf="@id/bottom_navigation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
-        android:layout_width="0dp"
-        android:layout_height="56dp"
-        android:background="?android:attr/windowBackground"
+        style="@style/NoRippleBottomNavigationView"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/navigation_bar_color"
+        app:itemBackground="@null"
         app:itemIconSize="32dp"
+        app:itemIconTint="@color/nav_item_color_state"
+        app:itemRippleColor="@color/transparent"
+        app:itemTextColor="@color/nav_item_color_state"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/bottom_nav_menu" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

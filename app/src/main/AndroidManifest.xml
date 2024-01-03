@@ -35,6 +35,18 @@
         <activity
             android:name=".PhotoActivity"
             android:exported="true" />
+        <activity
+            android:name=".FullScreenTrash"
+            android:exported="false" />
+        <activity
+            android:name=".TrashcanViewActivity"
+            android:exported="false" />
+        <activity
+            android:name=".FullScreenBookmark"
+            android:exported="false" />
+        <activity
+            android:name=".BookmarkImageViewActivity"
+            android:exported="false" />
         <activity android:name=".FullScreenActivity" />
         <activity
             android:name=".QuizActivity"

@@ -1,18 +1,20 @@
 package com.example.madcamp_androidproject
 
+import Constants
+import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.Typeface
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Button
-import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import org.json.JSONArray
+import org.json.JSONObject
 
 class QuizQuestionActivity : AppCompatActivity(), View.OnClickListener {
 
@@ -178,6 +180,7 @@ class QuizQuestionActivity : AppCompatActivity(), View.OnClickListener {
 
                     if (question!!.correctAnswer != mSelectedOptionPosition) {
                         answerView(mSelectedOptionPosition, R.drawable.wrong_option_border_bg)
+                        saveWrongAnswer(question)
                     } else {
                         mCorrectAnswers++
                     }
@@ -263,6 +266,21 @@ class QuizQuestionActivity : AppCompatActivity(), View.OnClickListener {
         intent.putParcelableArrayListExtra("QuizResults", ArrayList(quizResults))
         startActivity(intent)
         finish()
+    }
+
+    private fun saveWrongAnswer(question: Question) {
+        val sharedPreferences = getSharedPreferences("WrongAnswers", Context.MODE_PRIVATE)
+        val wrongAnswers = sharedPreferences.getString("wrongAnswers", "[]")
+        val jsonArray = JSONArray(wrongAnswers)
+
+        val wrongAnswer = JSONObject().apply {
+            put("day", selectedDay ?: "Unknown") // selectedDay 사용 또는 기본값 설정
+            put("word", question.word)
+            put("meaning", question.meaning)
+        }
+
+        jsonArray.put(wrongAnswer)
+        sharedPreferences.edit().putString("wrongAnswers", jsonArray.toString()).apply()
     }
 
 

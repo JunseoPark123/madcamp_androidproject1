@@ -13,7 +13,7 @@ import com.bumptech.glide.Glide
 import android.content.SharedPreferences
 import androidx.cardview.widget.CardView
 
-class ImagePagerAdapter(private val images: List<Int>, private val context: Context) : PagerAdapter() {
+class BookmarkPagerAdapter(private val images: List<Int>, private val context: Context) : PagerAdapter() {
 
 
     private val sharedPreferences: SharedPreferences =
@@ -58,6 +58,7 @@ class ImagePagerAdapter(private val images: List<Int>, private val context: Cont
             darkOverlay.visibility = View.VISIBLE
             bookmarkButton.isClickable = false
         }
+
         buttonCancelDelete.setOnClickListener{
             deleteConfirmationCardView.visibility = View.GONE
             darkOverlay.visibility = View.GONE
@@ -68,7 +69,7 @@ class ImagePagerAdapter(private val images: List<Int>, private val context: Cont
             val curImg = images[position]
             sharedPreferences.edit().putBoolean("img_$curImg", false).apply()
             bin.edit().putBoolean("img_$curImg", true).apply()
-            val intent = Intent(context, PhotoActivity::class.java)
+            val intent = Intent(context, BookmarkImageViewActivity::class.java)
             context.startActivity(intent)
         }
 

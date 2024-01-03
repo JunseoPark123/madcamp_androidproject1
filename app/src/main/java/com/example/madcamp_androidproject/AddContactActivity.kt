@@ -52,31 +52,31 @@ class AddContactActivity : AppCompatActivity() {
             finish()
         }
 
-        val bottomNavView: BottomNavigationView = findViewById(R.id.bottom_navigation)
-        bottomNavView.selectedItemId = R.id.navigation_photo
-        bottomNavView.setOnItemSelectedListener { item ->
-            when (item.itemId) {
-                R.id.navigation_phonenumber -> {
-                    val intent = Intent(this, ContactActivity::class.java)
-                    startActivity(intent)
-                    true
-                }
-
-                R.id.navigation_photo -> {
-                    val intent = Intent(this, PhotoActivity::class.java)
-                    startActivity(intent)
-                    true
-                }
-
-                R.id.navigation_english -> {
-                    val intent = Intent(this, QuizActivity::class.java)
-                    startActivity(intent)
-                    true
-                }
-
-                else -> false
-            }
-        }
+//        val bottomNavView: BottomNavigationView = findViewById(R.id.bottom_navigation)
+//        bottomNavView.selectedItemId = R.id.navigation_photo
+//        bottomNavView.setOnItemSelectedListener { item ->
+//            when (item.itemId) {
+//                R.id.navigation_phonenumber -> {
+//                    val intent = Intent(this, ContactActivity::class.java)
+//                    startActivity(intent)
+//                    true
+//                }
+//
+//                R.id.navigation_photo -> {
+//                    val intent = Intent(this, PhotoActivity::class.java)
+//                    startActivity(intent)
+//                    true
+//                }
+//
+//                R.id.navigation_english -> {
+//                    val intent = Intent(this, QuizActivity::class.java)
+//                    startActivity(intent)
+//                    true
+//                }
+//
+//                else -> false
+//            }
+//        }
 
     }
 }

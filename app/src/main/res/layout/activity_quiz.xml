@@ -132,7 +132,7 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <!-- Thin gray line above the BottomNavigationView -->
+
     <View
         android:id="@+id/line_above_navigation"
         android:layout_width="match_parent"

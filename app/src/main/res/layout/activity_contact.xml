@@ -33,6 +33,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginEnd="12dp"
         android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="@string/add_contact"
         android:scaleType="center"
         android:src="@drawable/baseline_add_24"
         app:layout_constraintEnd_toEndOf="parent"

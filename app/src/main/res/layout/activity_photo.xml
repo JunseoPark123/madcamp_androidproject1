@@ -97,16 +97,22 @@
   </LinearLayout>
 
 
-
+  <!-- GridView -->
   <GridView
       android:id="@+id/gridView"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
-      android:layout_below="@id/Bookmark"
-      android:layout_marginTop="1dp"
-      android:paddingBottom="60dp"
-      android:gravity="center"
-      android:numColumns="4" />
+      android:layout_above="@id/line_above_navigation"
+      android:numColumns="4"
+      android:gravity="center" />
+
+  <!-- Thin gray line above the BottomNavigationView -->
+  <View
+      android:id="@+id/line_above_navigation"
+      android:layout_width="match_parent"
+      android:layout_height="1dp"
+      android:background="#D8D8D8"
+      android:layout_above="@id/bottom_navigation" />
 
   <com.google.android.material.bottomnavigation.BottomNavigationView
       android:id="@+id/bottom_navigation"

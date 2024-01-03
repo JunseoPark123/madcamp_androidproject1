@@ -26,8 +26,6 @@
         app:layout_constraintTop_toBottomOf="@id/spinner_day" />
 
 
-
-
     <!-- Thin gray line above the BottomNavigationView -->
     <View
         android:id="@+id/line_above_navigation"

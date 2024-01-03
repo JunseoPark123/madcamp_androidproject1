@@ -78,7 +78,8 @@ Tab2 : 갤러리
 - 화면 우측 상단에 모든 사진, 휴지통, 즐겨찾기 총 3개의 탭 이동 버튼이 있습니다. (진입 화면은 모든 사진입니다.) 현재 탭 아이콘은 검정색으로, 나머지 탭 아이콘들은 옅은 회색으로 나타납니다.
 - 휴지통, 즐겨찾기 탭은 사진이 없을 때 각각 “휴지통이 비었습니다”/”즐겨찾기 사진이 없습니다” 텍스트가 뜹니다.
 
-![Screenshot_20240103-182417_madcamp_androidproject](https://github.com/JunseoPark123/madcamp_androidproject1/assets/102137004/4cd04718-77c3-4832-8fee-217497631f5b) ![Screenshot_20240103-182450_madcamp_androidproject](https://github.com/JunseoPark123/madcamp_androidproject1/assets/102137004/a92de51b-fe73-4167-998e-354866e363e9) ![Screenshot_20240103-182455_madcamp_androidproject](https://github.com/JunseoPark123/madcamp_androidproject1/assets/102137004/2ccbebdb-11ef-4bdc-8262-5360062233b4)
+![Screenshot_20240103-182417_madcamp_androidproject](https://github.com/JunseoPark123/madcamp_androidproject1/assets/102137004/6dc82eb7-fbeb-4ba3-9f75-6e44f5cee51c) ![Screenshot_20240103-182450_madcamp_androidproject](https://github.com/JunseoPark123/madcamp_androidproject1/assets/102137004/b1b74108-00f0-4442-9cc9-862240414c88) ![Screenshot_20240103-182455_madcamp_androidproject](https://github.com/JunseoPark123/madcamp_androidproject1/assets/102137004/56de43fa-36a3-4412-aeac-a929586a243d)
+
 
 
 - 그리드뷰에서 사진을 클릭하면 해당 사진의 전체화면이 뜹니다. 슬라이드 동작으로 옆 사진으로 이동할 수 있습니다. 백 버튼을 누르면 탭 화면으로 돌아갑니다.
@@ -87,14 +88,19 @@ Tab2 : 갤러리
 - 삭제 버튼을 누르면 Confirm 팝업창이 뜨면서 배경이 어두워지고, 확인을 누르면 사진이 휴지통 탭으로 이동하며 취소를 누르면 팝업창이 꺼지며 배경색이 돌아옵니다.
 
 
-![Screenshot_20240103-182432_madcamp_androidproject](https://github.com/JunseoPark123/madcamp_androidproject1/assets/102137004/1b9aa157-8e0c-415c-b772-f26d5d102a3c) ![Screenshot_20240103-182505_madcamp_androidproject](https://github.com/JunseoPark123/madcamp_androidproject1/assets/102137004/8119320b-e1bd-408e-aa64-37f9de60639b) ![Screenshot_20240103-182510_madcamp_androidproject](https://github.com/JunseoPark123/madcamp_androidproject1/assets/102137004/6a1279be-8943-4440-980e-225f4611884f) ![Uploading Screenshot_20240103-182538_madcamp_androidproject.jpg…]()
+![Screenshot_20240103-182432_madcamp_androidproject](https://github.com/JunseoPark123/madcamp_androidproject1/assets/102137004/fb69a1a4-a3ef-4910-ae6f-4220dfdacdc9)
+![Screenshot_20240103-182505_madcamp_androidproject](https://github.com/JunseoPark123/madcamp_androidproject1/assets/102137004/24a99555-0775-4584-8c02-61f25a72ccc3)
+ ![Screenshot_20240103-182510_madcamp_androidproject](https://github.com/JunseoPark123/madcamp_androidproject1/assets/102137004/9630c84b-845e-40c5-a49e-c5a7e91bdeb5)
+) ![Screenshot_20240103-182538_madcamp_androidproject](https://github.com/JunseoPark123/madcamp_androidproject1/assets/102137004/26ac0424-9a19-426c-979d-0f5bfa37aedc)
+
 
 - 휴지통 탭에서 사진을 클릭하면 전체화면 하단에 복구, 삭제 버튼이 있습니다. 복구를 하면 모든 사진 탭으로 사진이 이동하며, 삭제하면 휴지통에서 사진이 사라집니다.
 - 복구, 삭제 버튼을 누르면 Confirm 팝업창이 뜨면서 배경이 어두워지고, 확인을 누르면 복구/삭제가 진행되며 취소를 누르면 팝업창이 꺼지며 배경색이 돌아옵니다.
 
-![Screenshot_20240103-182531_madcamp_androidproject](https://github.com/JunseoPark123/madcamp_androidproject1/assets/102137004/6392abd0-3c35-4dd1-bc70-450285227119) ![Screenshot_20240103-182545_madcamp_androidproject](https://github.com/JunseoPark123/madcamp_androidproject1/assets/102137004/2a22843b-7cbf-470d-b6a1-2c8ee4572cb0) ![Screenshot_20240103-182549_madcamp_androidproject](https://github.com/JunseoPark123/madcamp_androidproject1/assets/102137004/5b0a66da-f9f7-4e9b-a21d-054ec8c27b46) ![Untitled](https://github.com/JunseoPark123/madcamp_androidproject1/assets/102137004/a54a1412-2806-4617-8d89-1ea3945307f0)
+![Screenshot_20240103-182531_madcamp_androidproject](https://github.com/JunseoPark123/madcamp_androidproject1/assets/102137004/e8900ff6-1060-4504-8c9f-d82b75b6e4ad) ![Screenshot_20240103-182545_madcamp_androidproject](https://github.com/JunseoPark123/madcamp_androidproject1/assets/102137004/d8af0565-e368-4634-963e-474992d7a30e) ![Screenshot_20240103-182549_madcamp_androidproject](https://github.com/JunseoPark123/madcamp_androidproject1/assets/102137004/1ea1b936-f34a-4862-bdb5-33bbb3dfdc40)
 
-![스크린샷 2024-01-03 183723](https://github.com/JunseoPark123/madcamp_androidproject1/assets/102137004/994f0f96-0b5a-4dd8-b054-a7adde6cb8f7) ![스크린샷 2024-01-03 183838](https://github.com/JunseoPark123/madcamp_androidproject1/assets/102137004/efa39529-388b-4345-9c68-99d43d73078a)
+
+
 
 
 

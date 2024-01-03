@@ -20,13 +20,14 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0">
 
+
         <TextView
             android:id="@+id/tv_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="200dp"
             android:gravity="center"
-            android:text="TOEIC QUIZ"
+            android:text="Vocabulary"
             android:textColor="#363A43"
             android:textSize="30sp"
             android:textStyle="bold"
@@ -37,7 +38,6 @@
             app:layout_constraintTop_toBottomOf="@+id/til_name"
             app:layout_constraintVertical_bias="0.62"
             tools:ignore="MissingConstraints" />
-
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/til_name"

@@ -1,18 +1,20 @@
 package com.example.madcamp_androidproject
 
+import Constants
+import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.Typeface
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Button
-import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import org.json.JSONArray
+import org.json.JSONObject
 
 class QuizQuestionActivity : AppCompatActivity(), View.OnClickListener {
 
@@ -24,16 +26,18 @@ class QuizQuestionActivity : AppCompatActivity(), View.OnClickListener {
     private var tvOptionThree: TextView? = null
     private var tvOptionFour: TextView? = null
     private var buttonSubmit: Button? = null
+    private var selectedDay: String? = null
 
     private var mCurrentPosition: Int = 1 // Default and the first question position
     private var mQuestionsList: ArrayList<Question>? = null
     private var mCorrectAnswers: Int = 0
     private var mSelectedOptionPosition: Int = 0
+    private var quizResults = mutableListOf<QuizResult>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_quiz_question)
 
-        progressBar=findViewById(R.id.progressBar)
+        progressBar = findViewById(R.id.progressBar)
         tvProgress = findViewById(R.id.tv_progress)
         tvQuestion = findViewById(R.id.tv_question)
         tvOptionOne = findViewById(R.id.tv_option_one)
@@ -41,7 +45,9 @@ class QuizQuestionActivity : AppCompatActivity(), View.OnClickListener {
         tvOptionThree = findViewById(R.id.tv_option_three)
         tvOptionFour = findViewById(R.id.tv_option_four)
         buttonSubmit = findViewById(R.id.btn_submit)
-        mQuestionsList = Constants.getQuestions()
+        selectedDay = intent.getStringExtra("selectedDay")
+        mQuestionsList = Constants.getQuestions(this, selectedDay ?: "day1")
+
 
         setQuestion()
 
@@ -53,7 +59,7 @@ class QuizQuestionActivity : AppCompatActivity(), View.OnClickListener {
 
 
         val bottomNavView: BottomNavigationView = findViewById(R.id.bottom_navigation)
-
+        bottomNavView.selectedItemId = R.id.navigation_english
         bottomNavView.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.navigation_phonenumber -> {
@@ -158,43 +164,34 @@ class QuizQuestionActivity : AppCompatActivity(), View.OnClickListener {
                 }
 
             }
-            R.id.btn_submit->{
-
+            R.id.btn_submit -> {
                 if (mSelectedOptionPosition == 0) {
-
+                    // 옵션이 선택되지 않고 제출 버튼이 눌린 경우
                     mCurrentPosition++
-
-                    when {
-
-                        mCurrentPosition <= mQuestionsList!!.size -> {
-
-                            setQuestion()
-                        }
-                        else -> {
-                            // TODO (Now remove the toast message and launch the result screen which we have created and also pass the user name and score details to it.)
-                            // START
-                            val intent =
-                                Intent(this@QuizQuestionActivity, ResultActivity::class.java)
-
-                            intent.putExtra(Constants.CORRECT_ANSWERS, mCorrectAnswers)
-                            intent.putExtra(Constants.TOTAL_QUESTIONS, mQuestionsList?.size)
-                            startActivity(intent)
-                            finish()
-                        }
+                    if (mCurrentPosition <= mQuestionsList!!.size) {
+                        setQuestion()
+                    } else {
+                        goToResultActivity()
                     }
                 } else {
                     val question = mQuestionsList?.get(mCurrentPosition - 1)
+                    // 답이 틀린 경우 체크
 
-                    // This is to check if the answer is wrong
+
                     if (question!!.correctAnswer != mSelectedOptionPosition) {
                         answerView(mSelectedOptionPosition, R.drawable.wrong_option_border_bg)
-                    }else{
+                        saveWrongAnswer(question)
+                    } else {
                         mCorrectAnswers++
                     }
 
-                    // This is for correct answer
-                    answerView(question.correctAnswer, R.drawable.correct_option_border_bg)
+                    answerView(question!!.correctAnswer, R.drawable.correct_option_border_bg)
 
+                    // 결과 기록
+                    val result = QuizResult(question.word, question.meaning, question.correctAnswer == mSelectedOptionPosition)
+                    quizResults.add(result)
+
+                    // 다음 질문 준비 또는 종료
                     if (mCurrentPosition == mQuestionsList!!.size) {
                         buttonSubmit?.text = "FINISH"
                     } else {
@@ -258,6 +255,32 @@ class QuizQuestionActivity : AppCompatActivity(), View.OnClickListener {
                 )
             }
         }
+    }
+
+
+    private fun goToResultActivity() {
+        val intent = Intent(this@QuizQuestionActivity, ResultActivity::class.java)
+        intent.putExtra(Constants.CORRECT_ANSWERS, mCorrectAnswers)
+        intent.putExtra(Constants.TOTAL_QUESTIONS, mQuestionsList?.size)
+        intent.putExtra("selectedDay", selectedDay) // 여기에 selectedDay 추가
+        intent.putParcelableArrayListExtra("QuizResults", ArrayList(quizResults))
+        startActivity(intent)
+        finish()
+    }
+
+    private fun saveWrongAnswer(question: Question) {
+        val sharedPreferences = getSharedPreferences("WrongAnswers", Context.MODE_PRIVATE)
+        val wrongAnswers = sharedPreferences.getString("wrongAnswers", "[]")
+        val jsonArray = JSONArray(wrongAnswers)
+
+        val wrongAnswer = JSONObject().apply {
+            put("day", selectedDay ?: "Unknown") // selectedDay 사용 또는 기본값 설정
+            put("word", question.word)
+            put("meaning", question.meaning)
+        }
+
+        jsonArray.put(wrongAnswer)
+        sharedPreferences.edit().putString("wrongAnswers", jsonArray.toString()).apply()
     }
 
 

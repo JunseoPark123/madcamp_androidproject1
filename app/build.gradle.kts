@@ -1,6 +1,7 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id ("kotlin-parcelize")
 }
 
 android {
@@ -9,7 +10,7 @@ android {
 
     defaultConfig {
         applicationId = "com.example.madcamp_androidproject"
-        minSdk = 24
+        minSdk = 26
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
@@ -39,15 +40,16 @@ android {
 }
 
 dependencies {
-    implementation("com.squareup.picasso:picasso:2.71828")
     implementation ("com.github.bumptech.glide:glide:4.12.0")
+    implementation("androidx.appcompat:appcompat:1.3.1")
+    implementation("androidx.viewpager:viewpager:1.0.0")
     implementation("androidx.navigation:navigation-fragment-ktx:2.5.3")
     implementation("androidx.navigation:navigation-ui-ktx:2.5.3")
     implementation("androidx.recyclerview:recyclerview:1.3.2")
     implementation("com.google.firebase:firebase-inappmessaging:20.4.0")
     annotationProcessor ("com.github.bumptech.glide:compiler:4.12.0")
-    implementation("androidx.core:core-ktx:1.9.0")
-    implementation("androidx.appcompat:appcompat:1.6.1")
+    implementation("androidx.core:core-ktx:1.6.0")
+    implementation("androidx.appcompat:appcompat:1.3.1")
     implementation("com.google.android.material:material:1.11.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     testImplementation("junit:junit:4.13.2")
@@ -56,6 +58,9 @@ dependencies {
     implementation ("androidx.navigation:navigation-fragment-ktx:2.3.0")
     implementation ("androidx.navigation:navigation-ui-ktx:2.3.0")
     implementation ("com.google.android.material:material:1.2.0")
+    implementation ("org.apache.poi:poi:4.1.2")
+    implementation ("org.apache.poi:poi-ooxml:4.1.2")
+    implementation ("com.google.code.gson:gson:2.8.6")
 
 
 

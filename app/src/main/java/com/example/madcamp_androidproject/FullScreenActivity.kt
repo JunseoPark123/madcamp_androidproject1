@@ -2,51 +2,51 @@ package com.example.madcamp_androidproject
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.ImageButton
 import android.widget.ImageView
+import androidx.cardview.widget.CardView
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.material.bottomnavigation.BottomNavigationView
+import androidx.viewpager.widget.ViewPager
+import android.util.Log
+
+
 
 class FullScreenActivity : AppCompatActivity() {
+
     companion object {
-        const val EXTRA_IMAGE_ID = "extra_image_id"
+        const val Image_ID = "imageId"
+        const val PREF_NAME = "MyPreferences"
+        const val KEY_IS_FAVORITE = "isFavorite"
+        const val KEY_FAVORITE_PHOTOS = "favoritePhotos"
     }
 
+    private lateinit var viewPager: ViewPager
+    private lateinit var fullScreenImageView: ImageView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_fullscreen)
 
-        val fullScreenImageView: ImageView = findViewById(R.id.fullScreenImageView)
 
-        val imageId = intent.getIntExtra(EXTRA_IMAGE_ID, 0)
-        fullScreenImageView.setImageResource(imageId)
+        viewPager = findViewById(R.id.viewPager)
+        val view = layoutInflater.inflate(R.layout.image_full_screen, null)
+        fullScreenImageView = view.findViewById(R.id.fullScreenImageView)
 
-        val bottomNavView: BottomNavigationView = findViewById(R.id.bottom_navigation)
 
-        bottomNavView.setOnItemSelectedListener { item ->
-            when (item.itemId) {
-                R.id.navigation_phonenumber -> {
-                    val intent = Intent(this, ContactActivity::class.java)
-                    startActivity(intent)
-                    true
-                }
+        val images = intent.getIntegerArrayListExtra("images") ?: emptyList()
+        val adapter = ImagePagerAdapter(images, this)
+        viewPager.adapter = adapter
 
-                R.id.navigation_photo -> {
-                    val intent = Intent(this, PhotoActivity::class.java)
-                    startActivity(intent)
-                    true
-                }
 
-                R.id.navigation_english -> {
-                    val intent = Intent(this, QuizActivity::class.java)
-                    startActivity(intent)
-                    true
-                }
+        val imageUrl = intent.getIntExtra("imageID", 0)
+        val position = images.indexOf(imageUrl)
+        viewPager.currentItem = position
 
-                else -> false
-            }
+
+        val btnGoBack: ImageButton = findViewById(R.id.GalleryFullScreenBackbutton)
+        btnGoBack.setOnClickListener {
+            finish()
         }
 
     }
-
-
 }

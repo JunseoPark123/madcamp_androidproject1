@@ -8,17 +8,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.ImageView
-import com.squareup.picasso.Picasso
 import com.bumptech.glide.Glide
 
-class ImageAdapter(private val context: Context, private val imageUrls: Array<String>) : BaseAdapter() {
+class ImageAdapter(private val context: Context, private val images: Array<Int>) : BaseAdapter() {
 
     override fun getCount(): Int {
-        return imageUrls.size
+        return images.size
     }
 
     override fun getItem(position: Int): Any {
-        return imageUrls[position]
+        return images[position]
     }
 
     override fun getItemId(position: Int): Long {
@@ -29,7 +28,9 @@ class ImageAdapter(private val context: Context, private val imageUrls: Array<St
         val imageView: ImageView
         if (convertView == null) {
             imageView = ImageView(context)
-            imageView.layoutParams = ViewGroup.LayoutParams(300, 300) // Adjust size as needed
+            val size = calculateImageSize(context)
+            val params = ViewGroup.LayoutParams(size, size)
+            imageView.layoutParams = params
             imageView.scaleType = ImageView.ScaleType.CENTER_CROP
             imageView.setPadding(8, 8, 8, 8)
         } else {
@@ -37,9 +38,23 @@ class ImageAdapter(private val context: Context, private val imageUrls: Array<St
         }
 
         Glide.with(context)
-            .load(imageUrls[position])
+            .load(images[position])
             .into(imageView)
 
         return imageView
     }
+
+    private fun calculateImageSize(context: Context): Int {
+        val displayMetrics = context.resources.displayMetrics
+        val screenWidth = displayMetrics.widthPixels
+        val horizontalSpacing = 4.dpToPx() // 여백 설정
+        val imageSize = (screenWidth - (3 * horizontalSpacing)) / 4 // 4개의 이미지가 들어가도록 설정
+        return imageSize
+    }
+
+    private fun Int.dpToPx(): Int {
+        val scale = context.resources.displayMetrics.density
+        return (this * scale).toInt()
+    }
+
 }

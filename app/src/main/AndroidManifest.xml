@@ -2,6 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+
+    <uses-feature
+        android:name="android.hardware.telephony"
+        android:required="false" />
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
@@ -15,6 +21,12 @@
         android:theme="@style/Theme.Madcamp_androidproject"
         tools:targetApi="31">
         <activity
+            android:name=".MyVocaActivity"
+            android:exported="false" />
+        <activity
+            android:name=".DayActivity"
+            android:exported="false" />
+        <activity
             android:name=".ResultActivity"
             android:exported="false" />
         <activity
@@ -23,6 +35,18 @@
         <activity
             android:name=".PhotoActivity"
             android:exported="true" />
+        <activity
+            android:name=".FullScreenTrash"
+            android:exported="false" />
+        <activity
+            android:name=".TrashcanViewActivity"
+            android:exported="false" />
+        <activity
+            android:name=".FullScreenBookmark"
+            android:exported="false" />
+        <activity
+            android:name=".BookmarkImageViewActivity"
+            android:exported="false" />
         <activity android:name=".FullScreenActivity" />
         <activity
             android:name=".QuizActivity"

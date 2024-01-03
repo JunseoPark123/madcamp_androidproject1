@@ -1,102 +1,69 @@
-package com.example.madcamp_androidproject
+import android.content.Context
+import android.util.Log
+import com.example.madcamp_androidproject.Question
+import com.example.madcamp_androidproject.ToeicWord
+import org.json.JSONArray
+import java.nio.charset.Charset
+import kotlin.random.Random
 
 object Constants {
 
-    // TODO  Create a constant variables which we required in the result screen
     const val TOTAL_QUESTIONS: String = "total_questions"
     const val CORRECT_ANSWERS: String = "correct_answers"
-    fun getQuestions(): ArrayList<Question> {
+
+    fun getQuestions(context: Context, selectedDay: String): ArrayList<Question> {
         val questionsList = ArrayList<Question>()
+        val usedWords = mutableSetOf<String>() // 이미 사용된 단어를 추적하기 위한 집합
 
-        // 1
-        val que1 = Question(
-            1, "What country does this flag belong to?",
-            "Argentina", "Australia",
-            "Armenia", "Austria", 1
-        )
+        try {
+            val jsonString = context.assets.open("toeic_word.json")
+                .bufferedReader(Charset.forName("UTF-8")).use { it.readText() }
+            Log.d("Constants", "JSON loaded successfully")
+            val jsonArray = JSONArray(jsonString)
+            val dayWords = mutableListOf<ToeicWord>()
 
-        questionsList.add(que1)
+            for (i in 0 until jsonArray.length()) {
+                val jsonObject = jsonArray.getJSONObject(i)
+                if (jsonObject.getString("Day") == selectedDay) {
+                    val word = jsonObject.getString("단어")
+                    val meaning = jsonObject.getString("뜻")
+                    dayWords.add(ToeicWord(selectedDay, word, meaning))
+                }
+            }
 
-        // 2
-        val que2 = Question(
-            2, "What country does this flag belong to?",
-            "Angola", "Austria",
-            "Australia", "Armenia", 3
-        )
+            while (questionsList.size < 10 && dayWords.isNotEmpty()) {
+                val correctAnswerIndex = Random.nextInt(dayWords.size)
+                val selectedWord = dayWords[correctAnswerIndex]
 
-        questionsList.add(que2)
+                if (usedWords.add(selectedWord.word)) {
+                    val questionWord = selectedWord.meaning
+                    val correctAnswer = selectedWord.word
 
-        // 3
-        val que3 = Question(
-            3, "What country does this flag belong to?",
-            "Belarus", "Belize",
-            "Brunei", "Brazil", 4
-        )
+                    val options = dayWords.filter { it.word != correctAnswer }
+                        .shuffled().take(3).map { it.word }.toMutableList()
+                    options.add(correctAnswer)
+                    options.shuffle()
 
-        questionsList.add(que3)
+                    val correctOptionIndex = options.indexOf(correctAnswer) + 1
 
-        // 4
-        val que4 = Question(
-            4, "What country does this flag belong to?",
-            "Bahamas", "Belgium",
-            "Barbados", "Belize", 2
-        )
+                    questionsList.add(
+                        Question(
+                            questionsList.size + 1,
+                            "Find the correct English word:\n'$questionWord'",
+                            options[0], options[1], options[2], options[3],
+                            correctOptionIndex,
+                            correctAnswer, // 추가된 필드
+                            questionWord   // 추가된 필드
+                        )
+                    )
 
-        questionsList.add(que4)
-
-        // 5
-        val que5 = Question(
-            5, "What country does this flag belong to?",
-            "Gabon", "France",
-            "Fiji", "Finland", 3
-        )
-
-        questionsList.add(que5)
-
-        // 6
-        val que6 = Question(
-            6, "What country does this flag belong to?",
-            "Germany", "Georgia",
-            "Greece", "none of these", 1
-        )
-
-        questionsList.add(que6)
-
-        // 7
-        val que7 = Question(
-            7, "What country does this flag belong to?",
-            "Dominica", "Egypt",
-            "Denmark", "Ethiopia", 3
-        )
-
-        questionsList.add(que7)
-
-        // 8
-        val que8 = Question(
-            8, "What country does this flag belong to?",
-            "Ireland", "Iran",
-            "Hungary", "India", 4
-        )
-
-        questionsList.add(que8)
-
-        // 9
-        val que9 = Question(
-            9, "What country does this flag belong to?",
-            "Australia", "New Zealand",
-            "Tuvalu", "United States of America", 2
-        )
-
-        questionsList.add(que9)
-
-        // 10
-        val que10 = Question(
-            10, "What country does this flag belong to?",
-            "Kuwait", "Jordan",
-            "Sudan", "Palestine", 1
-        )
-
-        questionsList.add(que10)
+                    dayWords.removeAt(correctAnswerIndex)
+                }
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+            Log.e("Constants", "Error loading JSON", e)
+        }
 
         return questionsList
     }

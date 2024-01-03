@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
     tools:context=".MyVocaActivity"
     android:background="@color/white">>
 
@@ -31,22 +31,32 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
+    <!-- Thin gray line above the BottomNavigationView -->
+    <View
+        android:id="@+id/line_above_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#D8D8D8"
+        app:layout_constraintBottom_toTopOf="@id/bottom_navigation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_alignParentBottom="true"
-        android:background="@color/navigation_bar_color"
-        app:itemIconTint="@color/nav_item_color_state"
-        app:itemTextColor="@color/nav_item_color_state"
-        app:itemIconSize="32dp"
-        app:itemBackground="@null"
-        app:itemRippleColor="@color/transparent"
         style="@style/NoRippleBottomNavigationView"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:background="@color/navigation_bar_color"
+        app:itemBackground="@null"
+        app:itemIconSize="32dp"
+        app:itemIconTint="@color/nav_item_color_state"
+        app:itemRippleColor="@color/transparent"
+        app:itemTextColor="@color/nav_item_color_state"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+
         app:menu="@menu/bottom_nav_menu" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

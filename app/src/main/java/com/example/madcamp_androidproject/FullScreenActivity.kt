@@ -4,8 +4,12 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.ImageButton
 import android.widget.ImageView
+import androidx.cardview.widget.CardView
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager.widget.ViewPager
+import android.util.Log
+
 
 
 class FullScreenActivity : AppCompatActivity() {
@@ -40,12 +44,9 @@ class FullScreenActivity : AppCompatActivity() {
 
 
         val btnGoBack: ImageButton = findViewById(R.id.GalleryFullScreenBackbutton)
-
         btnGoBack.setOnClickListener {
             finish()
         }
+
     }
-
-
-
 }

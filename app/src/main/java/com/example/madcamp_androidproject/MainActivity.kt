@@ -19,6 +19,7 @@ class MainActivity : AppCompatActivity() {
         val sharedPreferences: SharedPreferences = getSharedPreferences("BookmarkPreferences", Context.MODE_PRIVATE)
         val gridView: GridView = findViewById(R.id.gridView)
         val BookmarkShowBtn : ImageButton = findViewById(R.id.GalleryShowBookmark)
+        val DeleteShowBtn : ImageButton = findViewById(R.id.GalleryShowDelete)
         val images = arrayOf(
             R.drawable.img1,
             R.drawable.img2,
@@ -62,21 +63,39 @@ class MainActivity : AppCompatActivity() {
             // Add more image URLs as needed
         )
 
-        val adapter = ImageAdapter(this, images)
+
+        val bin =
+            getSharedPreferences("Trashcan", MODE_PRIVATE)
+        val ShownImages = mutableListOf<Int>()
+        for (i in 0 until images.size) {
+            val imageid = images[i]
+            val isDeleted = bin.getBoolean("img_$imageid", false)
+
+            if (!isDeleted) {
+                ShownImages.add(imageid)
+            }
+        }
+        val adapter = ImageAdapter(this, ShownImages.toTypedArray())
         gridView.adapter = adapter
         val imgNum = adapter.count
         sharedPreferences.edit().putInt("imgCount", imgNum).apply()
-
         gridView.setOnItemClickListener { _, _, position, _ ->
 
             val intent = Intent(this, FullScreenActivity::class.java)
-            intent.putExtra("imageID", images[position])
-            intent.putIntegerArrayListExtra("images", ArrayList(images.toList()))
+            intent.putExtra("imageID", ShownImages[position])
+            intent.putIntegerArrayListExtra("images", ArrayList(ShownImages.toList()))
             startActivity(intent)
         }
 
         BookmarkShowBtn.setOnClickListener {
             val intent = Intent(this, BookmarkImageViewActivity::class.java)
+            intent.putIntegerArrayListExtra("images", ArrayList(images.toList()))
+            startActivity(intent)
+            overridePendingTransition(0, 0);
+        }
+
+        DeleteShowBtn.setOnClickListener {
+            val intent = Intent(this, TrashcanViewActivity::class.java)
             intent.putIntegerArrayListExtra("images", ArrayList(images.toList()))
             startActivity(intent)
             overridePendingTransition(0, 0);

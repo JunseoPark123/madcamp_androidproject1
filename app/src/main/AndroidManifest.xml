@@ -16,6 +16,12 @@
         android:theme="@style/Theme.Madcamp_androidproject"
         tools:targetApi="31">
         <activity
+            android:name=".FullScreenTrash"
+            android:exported="false" />
+        <activity
+            android:name=".TrashcanViewActivity"
+            android:exported="false" />
+        <activity
             android:name=".FullScreenBookmark"
             android:exported="false" />
         <activity

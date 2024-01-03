@@ -29,7 +29,7 @@ class FullScreenBookmark : AppCompatActivity() {
 
 
         val images = intent.getIntegerArrayListExtra("images") ?: emptyList()
-        val adapter = ImagePagerAdapter(images, this)
+        val adapter = BookmarkPagerAdapter(images, this)
         viewPager.adapter = adapter
 
 
@@ -42,6 +42,7 @@ class FullScreenBookmark : AppCompatActivity() {
 
         btnGoBack.setOnClickListener {
             val intent = Intent(this, BookmarkImageViewActivity::class.java)
+            intent.putIntegerArrayListExtra("images", ArrayList(images.toList()))
             startActivity(intent)
         }
     }

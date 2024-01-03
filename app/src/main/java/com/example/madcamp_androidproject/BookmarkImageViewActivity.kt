@@ -18,7 +18,9 @@ class BookmarkImageViewActivity : AppCompatActivity() {
         val gridView: GridView = findViewById(R.id.gridView)
         val AllImagesShowBtn: ImageButton = findViewById(R.id.GalleryShowAllImages)
         val noImageText: TextView = findViewById(R.id.noImageText)
+        val DeleteShowBtn : ImageButton = findViewById(R.id.GalleryShowDelete)
 
+        val imageslist = intent.getIntegerArrayListExtra("images") ?: emptyList()
         val images = getBookmarkedImages().toTypedArray()
 
         if (images.isEmpty()) {
@@ -44,6 +46,13 @@ class BookmarkImageViewActivity : AppCompatActivity() {
             startActivity(intent)
             overridePendingTransition(0, 0);
         }
+
+        DeleteShowBtn.setOnClickListener {
+            val intent = Intent(this, TrashcanViewActivity::class.java)
+            intent.putIntegerArrayListExtra("images", ArrayList(imageslist.toList()))
+            startActivity(intent)
+            overridePendingTransition(0, 0);
+        }
     }
 
     private fun getBookmarkedImages(): List<Int> {
@@ -52,19 +61,60 @@ class BookmarkImageViewActivity : AppCompatActivity() {
         val imgs: SharedPreferences =
             getSharedPreferences("ImageIDs", Context.MODE_PRIVATE)
 
-        val imgNum = sharedPreferences.getInt("imgCount", 0)
+        //val imgNum = sharedPreferences.getInt("imgCount", 0)
 
         val bookmarkedImages = mutableListOf<Int>()
 
-        val imageslist = intent.getIntegerArrayListExtra("images") ?: emptyList()
+        val imagesL = arrayOf(
+            R.drawable.img1,
+            R.drawable.img2,
+            R.drawable.img3,
+            R.drawable.img4,
+            R.drawable.img5,
+            R.drawable.img6,
+            R.drawable.img7,
+            R.drawable.img8,
+            R.drawable.img9,
+            R.drawable.img10,
+            R.drawable.img11,
+            R.drawable.img12,
+            R.drawable.img13,
+            R.drawable.img14,
+            R.drawable.img15,
+            R.drawable.img16,
+            R.drawable.img17,
+            R.drawable.img18,
+            R.drawable.img19,
+            R.drawable.img20,
+            R.drawable.img21,
+            R.drawable.img22,
+            R.drawable.img23,
+            R.drawable.img24,
+            R.drawable.img25,
+            R.drawable.img26,
+            R.drawable.img27,
+            R.drawable.img28,
+            R.drawable.img29,
+            R.drawable.img30,
+            R.drawable.img31,
+            R.drawable.img32,
+            R.drawable.img33,
+            R.drawable.img34,
+            R.drawable.img35,
+            R.drawable.img36,
+            R.drawable.img37,
+            R.drawable.img38,
+            R.drawable.img39,
+            // Add more image URLs as needed
+        )
 
-        for (i in 0 until imgNum) {
-            val imageid = imageslist[i]
-            val isBookmarked = sharedPreferences.getBoolean("img_$imageid", false)
-            //Log.d("AdapterImages", isBookmarked.toString())
-            if (isBookmarked) {
-                val imageId = imgs.getInt("imgId_$imageid", 0)
-                bookmarkedImages.add(imageId)
+        if (imagesL.isNotEmpty()) {
+            for (i in 0 until imagesL.size) {
+                val imageid = imagesL[i]
+                val isBookmarked = sharedPreferences.getBoolean("img_$imageid", false)
+                if (isBookmarked) {
+                    bookmarkedImages.add(imageid)
+                }
             }
         }
 

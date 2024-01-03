@@ -17,7 +17,7 @@ class ResultActivity : AppCompatActivity() {
 
         val tvResult: TextView = findViewById(R.id.tv_result)
         val tvScore: TextView = findViewById(R.id.tv_score)
-        val btnFinish: Button = findViewById(R.id.btn_finish)
+        val btnFinish: TextView = findViewById(R.id.btn_finish)
 
         val selectedDay = intent.getStringExtra("selectedDay") ?: "day1"
         val totalQuestions = intent.getIntExtra(Constants.TOTAL_QUESTIONS, 0)

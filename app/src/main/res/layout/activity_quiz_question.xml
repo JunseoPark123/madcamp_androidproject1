@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".QuizQuestionActivity">
+    tools:context=".QuizQuestionActivity"
+    android:background="@color/white">
 
     <ScrollView
         android:layout_width="0dp"
@@ -125,25 +126,26 @@
                 android:textSize="18sp"
                 tools:text="Nokia" />
 
-            <Button
+            <TextView
                 android:id="@+id/btn_submit"
+                android:text="SUBMIT"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:radius="12dp"
-                android:backgroundTint="#4B6BEE"
-                android:text="SUBMIT"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/default_option_submit_bg"
+                android:gravity="center"
+                android:padding="15dp"
                 android:textColor="@android:color/white"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                android:textSize="18sp"/>
 
         </LinearLayout>
 
 
     </ScrollView>
 
-
-    <!-- Thin gray line above the BottomNavigationView -->
 
     <View
         android:id="@+id/line_above_navigation"
@@ -156,7 +158,6 @@
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
-
         style="@style/NoRippleBottomNavigationView"
         android:layout_width="match_parent"
         android:layout_height="60dp"

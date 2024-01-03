@@ -101,18 +101,11 @@
   <GridView
       android:id="@+id/gridView"
       android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:layout_above="@id/line_above_navigation"
+      android:layout_height="wrap_content"
+      android:layout_below="@id/Bookmark"
+     android:layout_above="@id/line_above_navigation"
       android:numColumns="4"
       android:gravity="center" />
-
-  <!-- Thin gray line above the BottomNavigationView -->
-  <View
-      android:id="@+id/line_above_navigation"
-      android:layout_width="match_parent"
-      android:layout_height="1dp"
-      android:background="#D8D8D8"
-      android:layout_above="@id/bottom_navigation" />
 
   <View
       android:id="@+id/line_above_navigation"

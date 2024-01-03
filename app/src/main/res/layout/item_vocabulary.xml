@@ -1,19 +1,25 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:padding="8dp">
+    android:padding="8dp"
+    android:background="@color/white"
+    app:cardBackgroundColor="@color/white">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="8dp"
         app:cardCornerRadius="12dp"
         app:cardElevation="8dp"
-        android:layout_margin="8dp">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="16dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:padding="8dp">
 
             <ImageButton
@@ -23,22 +29,22 @@
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:scaleType="center"
                 android:src="@drawable/baseline_delete_24"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/tvDay"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
+                android:gravity="center_vertical"
                 android:text="Day"
                 android:textSize="16sp"
-                android:gravity="center_vertical"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/tvWord"
-                app:layout_constraintTop_toTopOf="@+id/delete_button"
                 app:layout_constraintBottom_toBottomOf="@+id/delete_button"
-                app:layout_constraintHorizontal_weight="1"/>
+                app:layout_constraintEnd_toStartOf="@+id/tvWord"
+                app:layout_constraintHorizontal_weight="1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/delete_button" />
 
             <TextView
                 android:id="@+id/tvWord"
@@ -47,26 +53,24 @@
                 android:gravity="center_vertical"
                 android:text="Word"
                 android:textSize="16sp"
-                app:layout_constraintStart_toEndOf="@+id/tvDay"
-                app:layout_constraintEnd_toStartOf="@+id/tvMeaning"
-                app:layout_constraintTop_toTopOf="@+id/delete_button"
                 app:layout_constraintBottom_toBottomOf="@+id/delete_button"
-                app:layout_constraintHorizontal_weight="2"/>
+                app:layout_constraintEnd_toStartOf="@+id/tvMeaning"
+                app:layout_constraintHorizontal_weight="2"
+                app:layout_constraintStart_toEndOf="@+id/tvDay"
+                app:layout_constraintTop_toTopOf="@+id/delete_button" />
 
             <TextView
                 android:id="@+id/tvMeaning"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:text="Meaning"
                 android:gravity="center_vertical"
+                android:text="Meaning"
                 android:textSize="16sp"
-                app:layout_constraintStart_toEndOf="@+id/tvWord"
-                app:layout_constraintEnd_toStartOf="@+id/delete_button"
-                app:layout_constraintTop_toTopOf="@+id/delete_button"
                 app:layout_constraintBottom_toBottomOf="@+id/delete_button"
-                app:layout_constraintHorizontal_weight="2"/>
-
-
+                app:layout_constraintEnd_toStartOf="@+id/delete_button"
+                app:layout_constraintHorizontal_weight="2"
+                app:layout_constraintStart_toEndOf="@+id/tvWord"
+                app:layout_constraintTop_toTopOf="@+id/delete_button" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

@@ -7,7 +7,6 @@ import android.graphics.Color
 import android.graphics.Typeface
 import android.os.Bundle
 import android.view.View
-import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -25,7 +24,7 @@ class QuizQuestionActivity : AppCompatActivity(), View.OnClickListener {
     private var tvOptionTwo: TextView? = null
     private var tvOptionThree: TextView? = null
     private var tvOptionFour: TextView? = null
-    private var buttonSubmit: Button? = null
+    private var buttonSubmit: TextView? = null
     private var selectedDay: String? = null
 
     private var mCurrentPosition: Int = 1 // Default and the first question position

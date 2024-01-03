@@ -21,7 +21,9 @@ class MyVocaActivity : AppCompatActivity() {
 
         recyclerView = findViewById(R.id.rvMyVocabulary)
         recyclerView.layoutManager = LinearLayoutManager(this)
-        vocabularyAdapter = VocabularyAdapter(vocabularyList)
+        vocabularyAdapter = VocabularyAdapter(vocabularyList) { position ->
+            removeItem(position)
+        }
         recyclerView.adapter = vocabularyAdapter
 
         loadVocabularyData()
@@ -70,4 +72,16 @@ class MyVocaActivity : AppCompatActivity() {
     }
 
 
+    private fun removeItem(position: Int) {
+        // 리스트에서 제거하고 어댑터에 알림
+        vocabularyList.removeAt(position)
+        vocabularyAdapter.notifyItemRemoved(position)
+
+        // SharedPreferences 업데이트
+        val sharedPreferences = getSharedPreferences("WrongAnswers", Context.MODE_PRIVATE)
+        val wrongAnswers = sharedPreferences.getString("wrongAnswers", "[]")
+        val jsonArray = JSONArray(wrongAnswers)
+        jsonArray.remove(position) // JSONArray에서 아이템 제거
+        sharedPreferences.edit().putString("wrongAnswers", jsonArray.toString()).apply()
+    }
 }

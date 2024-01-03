@@ -5,13 +5,17 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.madcamp_androidproject.databinding.ItemVocabularyBinding
 
-class VocabularyAdapter(private val vocabularyList: List<VocabularyItem>)
-    : RecyclerView.Adapter<VocabularyAdapter.VocabularyViewHolder>() {
+class VocabularyAdapter(
+    private val vocabularyList: MutableList<VocabularyItem>,
+    private val onDeleteClicked: (Int) -> Unit
+) : RecyclerView.Adapter<VocabularyAdapter.VocabularyViewHolder>() {
 
-    class VocabularyViewHolder(private val binding: ItemVocabularyBinding)
+
+    class VocabularyViewHolder(private val binding: ItemVocabularyBinding, onDeleteClicked: (Int) -> Unit)
         : RecyclerView.ViewHolder(binding.root) {
-
-
+        init {
+            binding.deleteButton.setOnClickListener { onDeleteClicked(adapterPosition) }
+        }
         fun bind(item: VocabularyItem) {
             binding.tvDay.text = "${item.day}"
             binding.tvWord.text = "${item.word}"
@@ -21,7 +25,7 @@ class VocabularyAdapter(private val vocabularyList: List<VocabularyItem>)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VocabularyViewHolder {
         val binding = ItemVocabularyBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return VocabularyViewHolder(binding)
+        return VocabularyViewHolder(binding, onDeleteClicked)
     }
 
     override fun onBindViewHolder(holder: VocabularyViewHolder, position: Int) {

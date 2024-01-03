@@ -48,7 +48,7 @@
         android:id="@+id/btn_finish"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="FINISH"
+        android:text="Go Back to Voca"
         android:textColor="@android:color/white"
         android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@id/bottom_navigation"

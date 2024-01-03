@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".QuizQuestionActivity"
-    android:background="@color/white">>
+    tools:context=".QuizQuestionActivity">
 
     <ScrollView
         android:layout_width="0dp"
@@ -43,7 +42,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:gravity="center_vertical"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                tools:ignore="ExtraText">
 
                 <ProgressBar
                     android:id="@+id/progressBar"
@@ -54,7 +54,8 @@
                     android:indeterminate="false"
                     android:max="10"
                     android:minHeight="50dp"
-                    android:progress="0" />
+                    android:progress="0"
+                    android:progressTint="#4B6BEE"/>
 
                 <TextView
                     android:id="@+id/tv_progress"
@@ -129,7 +130,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:background="@color/colorPrimary"
+                android:radius="12dp"
+                android:backgroundTint="#4B6BEE"
                 android:text="SUBMIT"
                 android:textColor="@android:color/white"
                 android:textSize="18sp"
@@ -153,9 +155,12 @@
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
+
         style="@style/NoRippleBottomNavigationView"
         android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
         android:background="@color/navigation_bar_color"
         app:itemBackground="@null"
         app:itemIconSize="32dp"
